@@ -1,4 +1,5 @@
 ﻿using System;
+using BondMobileApp.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,8 @@ namespace BondMobileApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
+            MainPage = new MainSelectonPage();
         }
 
         protected override void OnStart()

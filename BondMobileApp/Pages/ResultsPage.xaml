@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BondMobileApp.Pages.ResultsPage">
+    <ContentPage.Content>
+
+        <!--  Why can't I have 2 stacked layouts on top of one another?
+        <StackLayout>
+
+        </StackLayout>
+        -->
+
+
+        <StackLayout>
+            
+            <Label Text="Results Page" BackgroundColor="Aqua" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,10,30,10"/>
+            
+            <Label Text="Here is how you did Mr. Bond"></Label>
+            <!--
+            <Label  x:Name="questionsX" Text="" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
+            <Label  x:Name="correctX" Text="" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
+            <Label  x:Name="wrongX" Text="" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
+            -->
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="Number of Questions asked: " Grid.Row="0" Grid.Column="0"></Label>
+                <Label  x:Name="questionsX" Text="" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
+                <Label Text="Total Number of Correct Answers" Grid.Row="1" Grid.Column="0"></Label>
+                <Label  x:Name="correctX" Text="" TextColor="Red" Grid.Row="1" Grid.Column="1"></Label>
+                <Label Text="Total Number of Incorrect Answers" Grid.Row="2" Grid.Column="0"></Label>
+                <Label  x:Name="wrongX" Text="" TextColor="Red" Grid.Row="2" Grid.Column="1"></Label>
+            </Grid>
+
+            <!--<Label x:Name="numQuestions" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
+            <Label x:Name="numAnswers" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
+            <Label x:Name="numWrong" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>-->
+
+        <!--Create New Button-->
+
+            <Button Text="Main Page" Clicked="Button_Clicked" TextColor="White"  BackgroundColor="Blue" Margin="90,20"></Button>
+
+
+
+
+        </StackLayout>
+
+        
+    </ContentPage.Content>
+</ContentPage>
+

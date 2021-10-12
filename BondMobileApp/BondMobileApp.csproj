@@ -19,5 +19,11 @@
   <ItemGroup>
     <None Remove="Newtonsoft.Json" />
     <None Remove="Microsoft.Net.Http" />
+    <None Remove="Pages\" />
+    <None Remove="EndpointCalls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\" />
+    <Folder Include="EndpointCalls\" />
   </ItemGroup>
 </Project>
