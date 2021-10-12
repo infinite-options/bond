@@ -21,9 +21,13 @@
     <None Remove="Microsoft.Net.Http" />
     <None Remove="Pages\" />
     <None Remove="EndpointCalls\" />
+    <None Remove="ViewModels\" />
+    <None Remove="EndpointDataClasses\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="EndpointCalls\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="EndpointDataClasses\" />
   </ItemGroup>
 </Project>

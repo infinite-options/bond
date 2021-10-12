@@ -2,7 +2,16 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:BondMobileApp.ViewModels"
     x:Class="BondMobileApp.Pages.MovieQuestionPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:HenchmenViewModel>
+
+        </viewmodels:HenchmenViewModel>
+    </ContentPage.BindingContext>
+
+
     <ContentPage.Content>
 
         <StackLayout>
@@ -63,6 +72,11 @@
                          <RadioButton Content = "The Man with the Golden Gun" CheckedChanged="RadioButton_CheckedChanged"></RadioButton>
                          <RadioButton Content = "Goldfinger" CheckedChanged="RadioButton_CheckedChanged"></RadioButton>-->
                      </StackLayout>
+
+                     <Label Text="{Binding TestOption0}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption1}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption2}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption3}" TextColor="Black" FontSize="Large"></Label>
 
 
                      <Grid>

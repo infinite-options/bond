@@ -11,14 +11,15 @@ using System.Collections.ObjectModel;  // Needed for Observable Collection
 using System.ComponentModel;  // Needed for INotifyPropertyChanged
 using System.Linq;
 using BondMobileApp.EndpointDataClasses;
+using BondMobileApp.ViewModels;
 
 namespace BondMobileApp.Pages
 {
-    public partial class MovieQuestionPage : ContentPage
+    public partial class QuestionPage : ContentPage
     {
         // Global variables
 
-
+        
         public int index = 0;
         public int questions = 0;
         public int ans_correct = 0;
@@ -44,16 +45,45 @@ namespace BondMobileApp.Pages
 
 
 
+        public HenchmenViewModel HenchmenModel = new HenchmenViewModel();
+
+
+
         // Constructor
-        public MovieQuestionPage()
+        public QuestionPage(string qtype)
         {
             InitializeComponent();
+            BindingContext = HenchmenModel;
             LocalHenchmen();
         }
 
 
- 
-        
+        // Endpoint Step 1: Define a public class with the specific attributes that will be received from the endpoint
+        // Get Data Mapping from : https://jsonutils.com/
+        //public class Henchmen
+        //{
+        //    public string movie_uid { get; set; }
+        //    public string movie_title { get; set; }
+        //    public int movie_order { get; set; }
+        //    public int movie_year { get; set; }
+        //    public int? book_order { get; set; }
+        //    public int? book_year { get; set; }
+        //    public string bond_actor { get; set; }
+        //    public string director { get; set; }
+        //    public string car { get; set; }
+        //    public string gun { get; set; }
+        //    public string villain_uid { get; set; }
+        //    public string villain_movie_uid { get; set; }
+        //    public string villain { get; set; }
+        //    public string villain_actor { get; set; }
+        //    public string objective { get; set; }
+        //    public string outcome { get; set; }
+        //    public string fate { get; set; }
+        //    public string sidekick_uid { get; set; }
+        //    public string sidekick_movie_uid { get; set; }
+        //    public string sidekick { get; set; }
+        //    public string sidekick_actor { get; set; }
+        //}
 
 
         public class displaytext : INotifyPropertyChanged
@@ -83,15 +113,45 @@ namespace BondMobileApp.Pages
 
 
 
+
+
+        // LocalHenchmen                                              Calls the Endpoint and gets data in a list
+        //   getQuestion                                              Checks if 10 questions asked OR if all questions have been asked (if < 10), gets an index of the question to ask  
+        //     getHenchmanName ==> Has Question format                Generates Questions and Stores answer, gets 3 other potential answers
+        //     setLabelData (something to do with databinding)
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
         // Endpoint Step 3: Perform the Task of calling the Endpoint
         // Gets the data and stores it in a global variable
         async void LocalHenchmen()
         {
             Debug.WriteLine("Inside LocalHenchmen");
-            var endpointobject = new Endpoints();
-            //var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
-            HenchmenList = await endpointobject.GetHenchmen();  //GetHenchmen returns the result and stores it
+            //var endpointobject = new Endpoints();
+            ////var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
+            //HenchmenList = await endpointobject.GetHenchmen();  //GetHenchmen returns the result and stores it
+
+
+            // Calling Endpoint
+            HenchmenList = await HenchmenModel.getHenchmentList();
             Debug.WriteLine("Finished LocalHenchmen");
+
+            
 
             // Puts in a single Henchmen into the binding collection
             //HenchmenDetails.Add(HenchmenList[0]);
@@ -102,7 +162,16 @@ namespace BondMobileApp.Pages
             {
                 HenchmenDetails.Add(item);
             }
-            bindingCollection.ItemsSource = HenchmenDetails;
+
+            //bindingCollection.ItemsSource = HenchmenDetails;
+
+
+
+
+
+
+
+
 
 
 

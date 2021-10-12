@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:BondMobileApp.ViewModels"
+    x:Class="BondMobileApp.Pages.QuestionPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:HenchmenViewModel>
+
+        </viewmodels:HenchmenViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+             <Label Text="Movie Questions" BackgroundColor="BlanchedAlmond" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,10,30,10"/>
+             <Label Text="So you think you know the answers Mr Bond" HorizontalTextAlignment="Center" FontSize="Header" Padding="30,10,30,10"/>
+
+             <ScrollView>
+
+                 <StackLayout>
+
+                     <!--Question-->
+                     <Rectangle  Background="red"></Rectangle>
+
+                     <!--Complete concatination in the code behind-->
+                     <Label x:Name="dynamicHenchmenName" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
+                      <Label x:Name="question" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
+
+                     <Rectangle Background="red"></Rectangle>
+
+
+
+
+
+                     <!--Answers-->
+
+                     <StackLayout Margin="20">
+                         <RadioButton x:Name="Option0" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton x:Name="Option1" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton x:Name="Option2" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton x:Name="Option3" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                     </StackLayout>
+
+                      <!--<StackLayout Margin="20">
+                         <RadioButton Content="{Binding TestOption0}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding TestOption1}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding TestOption2}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding TestOption3}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                     </StackLayout>-->
+
+                     <Label Text="{Binding TestOption0}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption1}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption2}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption3}" TextColor="Black" FontSize="Large"></Label>
+
+
+
+
+
+                     <!--Status-->
+                     <Grid>
+                         <Grid.ColumnDefinitions>
+                             <ColumnDefinition></ColumnDefinition>
+                             <ColumnDefinition></ColumnDefinition>
+                         </Grid.ColumnDefinitions>
+                         <Grid.RowDefinitions>
+                             <RowDefinition></RowDefinition>
+                             <RowDefinition></RowDefinition>
+                             <RowDefinition></RowDefinition>
+                         </Grid.RowDefinitions>
+                         <Label Text="Number of Questions asked: " Grid.Row="0" Grid.Column="0"></Label>
+                         <Label  x:Name="questionsX" Text="" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
+                         <Label Text="Total Number of Correct Answers" Grid.Row="1" Grid.Column="0"></Label>
+                         <Label  x:Name="ans_correctX" Text="" TextColor="Red" Grid.Row="1" Grid.Column="1"></Label>
+                         <Label Text="Total Number of Incorrect Answers" Grid.Row="2" Grid.Column="0"></Label>
+                         <Label  x:Name="ans_wrongX" Text="" TextColor="Red" Grid.Row="2" Grid.Column="1"></Label>
+                     </Grid>
+
+
+
+
+                     <!--Button-->
+
+                     <Button Text="Results Page" Clicked="Button_Clicked" TextColor="White"  BackgroundColor="Blue" Margin="90,20"></Button>
+                     
+
+
+                 </StackLayout>
+
+             </ScrollView>
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
