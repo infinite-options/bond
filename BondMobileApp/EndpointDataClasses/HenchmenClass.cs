@@ -1,6 +1,8 @@
 ﻿using System;
 namespace BondMobileApp.EndpointDataClasses
 {
+
+    // Get Data Mapping from : https://jsonutils.com/
     public class HenchmenClass
     {
         public string movie_uid { get; set; }

@@ -53,7 +53,9 @@ namespace BondMobileApp.Pages
         public QuestionPage(string qtype)
         {
             InitializeComponent();
+            Debug.WriteLine("\nStep 5: In QuestionPage Step 1");
             BindingContext = HenchmenModel;
+            Debug.WriteLine("Step 6: In QuestionPage Step 2");
             LocalHenchmen();
         }
 
@@ -141,7 +143,7 @@ namespace BondMobileApp.Pages
         // Gets the data and stores it in a global variable
         async void LocalHenchmen()
         {
-            Debug.WriteLine("Inside LocalHenchmen");
+            Debug.WriteLine("Step 7: Inside QuestionPage LocalHenchmen");
             //var endpointobject = new Endpoints();
             ////var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
             //HenchmenList = await endpointobject.GetHenchmen();  //GetHenchmen returns the result and stores it
@@ -149,7 +151,7 @@ namespace BondMobileApp.Pages
 
             // Calling Endpoint
             HenchmenList = await HenchmenModel.getHenchmentList();
-            Debug.WriteLine("Finished LocalHenchmen");
+            Debug.WriteLine("Finished QuestionPage LocalHenchmen");
 
             
 

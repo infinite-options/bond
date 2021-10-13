@@ -26,25 +26,32 @@ namespace BondTrivia.EndpointCalls
 
         }
 
+
+
         // Create a Generic Endpoint call
 
 
         // Endpoint Step 3: Perform the Task of calling the Endpoint
         public async Task<List<HenchmenClass>> GetHenchmen()
         {
-            Debug.WriteLine("\nInside GetHenchmen Endpoint Call");
+            Debug.WriteLine("\nStep 3: Inside Enpoints.cs GetHenchmen Endpoint Call");
             baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/";
             suffix = "api/v2/sidekicks";
             endpoint = baseURL + suffix;
-            Debug.WriteLine("Endpoint URL: " + endpoint);
+            Debug.WriteLine("Step 4: Endpoint URL: " + endpoint);
 
-            // Set the result of the upcoming call to null
+            // Initiallize the result of the upcoming call to null
             List<HenchmenClass> result = null;
+
             // HttpClient requires using System.Net.Http which defines what dot attributes it has
             var client = new HttpClient();
+
             // Endpoint call definition.  Requires Newtonsoft.Json;  endpointCall variable has dot attributes
             //var endpointCall = await client.GetAsync("https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/api/v2/sidekicks");
             var endpointCall = await client.GetAsync(endpoint);
+            Debug.WriteLine("endpointCall: " + endpointCall);
+
+
 
             // Check if endpoint call was successful
             if (endpointCall.IsSuccessStatusCode)
@@ -62,6 +69,15 @@ namespace BondTrivia.EndpointCalls
             // if endpoint call is successful return result OR return null as initialized
             return result;
         }
+
+
+
+
+
+
+
+
+
 
 
         // Endpoint Step 3: Perform the Task of calling the Endpoint
@@ -100,3 +116,4 @@ namespace BondTrivia.EndpointCalls
         //}
     }
 }
+
