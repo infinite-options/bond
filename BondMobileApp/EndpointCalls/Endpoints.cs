@@ -49,7 +49,7 @@ namespace BondTrivia.EndpointCalls
             // Endpoint call definition.  Requires Newtonsoft.Json;  endpointCall variable has dot attributes
             //var endpointCall = await client.GetAsync("https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/api/v2/sidekicks");
             var endpointCall = await client.GetAsync(endpoint);
-            Debug.WriteLine("endpointCall: " + endpointCall);
+            Debug.WriteLine("Step 8: endpointCall: " + endpointCall);
 
 
 
@@ -59,12 +59,12 @@ namespace BondTrivia.EndpointCalls
                 // This is the actual endpoint call and data is stored in variable
                 var endpointContentString = await endpointCall.Content.ReadAsStringAsync();
                 // Print statement to see what data was received.  Especially valuable with breakpoints
-                Debug.WriteLine("From Endpoint Call: " + endpointContentString);
+                Debug.WriteLine("Step 9: From Endpoint Call: " + endpointContentString);
                 // Put the results in result for return.  Put data into list.  List of Objects each of Type Henchmen
                 result = JsonConvert.DeserializeObject<List<HenchmenClass>>(endpointContentString);
             }
 
-            Debug.WriteLine("End GetHenchmen Endpoint Call");
+            Debug.WriteLine("Step 10: End GetHenchmen Endpoint Call");
 
             // if endpoint call is successful return result OR return null as initialized
             return result;

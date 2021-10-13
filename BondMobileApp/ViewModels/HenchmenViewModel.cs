@@ -34,7 +34,7 @@ namespace BondMobileApp.ViewModels
 
             // Calls endpoint GetHenchmen
             var endpointData = await endpointobject.GetHenchmen();
-            Debug.WriteLine("EndpointData: " + endpointData);
+            Debug.WriteLine("Step 11: EndpointData: " + endpointData);
 
             // Now all data from endpoint is in endpointData
 
@@ -42,7 +42,7 @@ namespace BondMobileApp.ViewModels
             TestOption1 = endpointData[0].sidekick;
             TestOption2 = endpointData[0].sidekick_actor;
             TestOption3 = endpointData[0].villain;
-            Debug.WriteLine("Exit HenchmenViewModel");
+            Debug.WriteLine("Step 12: Exit HenchmenViewModel");
             //Debug.WriteLine("Endpoint URL: " + endpoint);
             return endpointData;
         }

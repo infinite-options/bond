@@ -151,7 +151,7 @@ namespace BondMobileApp.Pages
 
             // Calling Endpoint
             HenchmenList = await HenchmenModel.getHenchmentList();
-            Debug.WriteLine("Finished QuestionPage LocalHenchmen");
+            Debug.WriteLine("Step 13: Finished QuestionPage LocalHenchmen");
 
             
 
@@ -189,7 +189,7 @@ namespace BondMobileApp.Pages
 
         void getQuestion()
         {
-            Debug.WriteLine("\nInside getQuestion");
+            Debug.WriteLine("\n Step 14: Inside getQuestion");
             //Debug.WriteLine(QuestionsAsked.Count);
             //Debug.WriteLine(HenchmenList.Count);
 
@@ -217,7 +217,7 @@ namespace BondMobileApp.Pages
                 // Generate Random number for next Question
                 Random n = new Random();
                 int nextQuestion = n.Next(HenchmenList.Count);
-                Debug.WriteLine("Next Question Index: " + nextQuestion);
+                Debug.WriteLine("Step 15: Next Question Index: " + nextQuestion);
 
                 // Check is random number has already been used
                 if (QuestionsAsked.Contains(nextQuestion) == true)
@@ -227,11 +227,11 @@ namespace BondMobileApp.Pages
                 }
                 else
                 {
-                    Debug.WriteLine("Ask Question!");
+                    Debug.WriteLine("Step 16: Ask Question!");
                     // Calls getHenchmanName with a random number in HenchmenList
                     getHenchmanName(nextQuestion);
                     QuestionsAsked.Add(nextQuestion);
-                    Debug.WriteLine("After: " + QuestionsAsked.Count);
+                    Debug.WriteLine("Step 26: After: " + QuestionsAsked.Count);
                     setLabelData();
                 }
             }
@@ -241,8 +241,8 @@ namespace BondMobileApp.Pages
 
         void getHenchmanName(int n)
         {
-            Debug.WriteLine("Inside getHenchmenName " + n);
-            Debug.WriteLine("Total Number of Henchmen " + HenchmenList.Count);
+            Debug.WriteLine("Step 17: Inside getHenchmenName " + n);
+            Debug.WriteLine("Step 18: Total Number of Henchmen " + HenchmenList.Count);
             // Check if data was returned
             if (HenchmenList.Count != 0 && n < HenchmenList.Count)
             {
@@ -258,7 +258,7 @@ namespace BondMobileApp.Pages
 
                 //Debug.WriteLine("From Get_Henchmen: {0}, {1}", henchmenName.Text, henchmenMovie.Text);
                 //Debug.WriteLine("From Get_Henchmen: " + henchmenName.Text + ", " + henchmenMovie.Text);
-                Debug.WriteLine("From Get_Henchmen: " + HenchmenList[n].sidekick + ", " + HenchmenList[n].movie_title);
+                Debug.WriteLine("Step 19: From Get_Henchmen: " + HenchmenList[n].sidekick + ", " + HenchmenList[n].movie_title);
 
 
 
@@ -272,7 +272,7 @@ namespace BondMobileApp.Pages
                     // generate a random number
                     Random m = new Random();
                     int Option = m.Next(HenchmenList.Count);
-                    Debug.WriteLine("Option: " + Option);
+                    Debug.WriteLine("Step 20: Option: " + Option);
 
                     // check if it is in the list or if it is equal to the question
                     if (Options.Contains(Option) == true)
@@ -291,7 +291,7 @@ namespace BondMobileApp.Pages
                 }
 
                 // Verify that all answers are unique
-                Debug.WriteLine("\nVerify Option are unique");
+                Debug.WriteLine("\nStep 21: Verify Option are unique");
                 for (int i = 0; i < Options.Count; i++)
                 {
                     Debug.WriteLine(Options[i]);
@@ -333,7 +333,7 @@ namespace BondMobileApp.Pages
                 }
 
                 // Verify that all answers are unique
-                Debug.WriteLine("\nVerify Display Option are unique");
+                Debug.WriteLine("\n Step 23: Verify Display Option are unique");
                 for (int i = 0; i < Display.Count; i++)
                 {
                     Debug.WriteLine(Display[i]);
@@ -350,7 +350,7 @@ namespace BondMobileApp.Pages
 
 
             }
-            Debug.WriteLine("Finished getHenchmenName");
+            Debug.WriteLine("Step 25: Finished getHenchmenName");
 
         }
 
