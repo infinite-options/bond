@@ -6,9 +6,7 @@
     x:Class="BondMobileApp.Pages.MovieQuestionPage">
 
     <ContentPage.BindingContext>
-        <viewmodels:HenchmenViewModel>
-
-        </viewmodels:HenchmenViewModel>
+        <viewmodels:HenchmenViewModel></viewmodels:HenchmenViewModel>
     </ContentPage.BindingContext>
 
 
@@ -73,10 +71,15 @@
                          <RadioButton Content = "Goldfinger" CheckedChanged="RadioButton_CheckedChanged"></RadioButton>-->
                      </StackLayout>
 
-                     <Label Text="{Binding TestOption0}" TextColor="Black" FontSize="Large"></Label>
-                     <Label Text="{Binding TestOption1}" TextColor="Black" FontSize="Large"></Label>
-                     <Label Text="{Binding TestOption2}" TextColor="Black" FontSize="Large"></Label>
-                     <Label Text="{Binding TestOption3}" TextColor="Black" FontSize="Large"></Label>
+                     <!--Carlos added these RadioButtons-->
+                     <StackLayout Margin="20">
+                         <RadioButton Content="{Binding DisplayMovieTitle}" CheckedChanged="RadioButton_CheckedChanged" IsTabStop="False" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding DisplaySidekick}" CheckedChanged="RadioButton_CheckedChanged" IsTabStop="False" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding DisplaySidekickActor}" CheckedChanged="RadioButton_CheckedChanged" IsTabStop="False" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding DisplayVillain}" CheckedChanged="RadioButton_CheckedChanged" IsTabStop="False" IsChecked="False"></RadioButton>
+                     </StackLayout>
+
+                     <Button Text="Iterate through HenchmenList" Clicked="IterateOverHenchmenListUsingViewMode"></Button>
 
 
                      <Grid>

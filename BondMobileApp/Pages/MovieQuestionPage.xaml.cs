@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;  // Needed for Observable Collection
 using System.ComponentModel;  // Needed for INotifyPropertyChanged
 using System.Linq;
 using BondMobileApp.EndpointDataClasses;
+using BondMobileApp.ViewModels;
 
 namespace BondMobileApp.Pages
 {
@@ -42,12 +43,20 @@ namespace BondMobileApp.Pages
         public ObservableCollection<HenchmenClass> HenchmenDetails = new ObservableCollection<HenchmenClass>();
         public ObservableCollection<displaytext> bindingSource = new ObservableCollection<displaytext>();
 
+        // Private attributes of MovieQuestionPage class
+
+        int i = 0; // index 
+
+        HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object
 
 
         // Constructor
         public MovieQuestionPage()
         {
             InitializeComponent();
+
+            BindingContext = model;
+
             LocalHenchmen();
         }
 
@@ -335,8 +344,17 @@ namespace BondMobileApp.Pages
             }
         }
 
-
-
-
+        void IterateOverHenchmenListUsingViewMode(System.Object sender, System.EventArgs e)
+        {
+            if (i < model.localHechmenList.Count)
+            {
+                model.IterateOverHenchmenList(i);
+                i++;
+            }
+            else
+            {
+                i = 0;
+            }
+        }
     }
 }

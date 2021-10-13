@@ -3,6 +3,7 @@ namespace BondMobileApp.EndpointDataClasses
 {
     public class HenchmenClass
     {
+        // Attributes of HenchmentClass
         public string movie_uid { get; set; }
         public string movie_title { get; set; }
         public int movie_order { get; set; }
@@ -25,12 +26,7 @@ namespace BondMobileApp.EndpointDataClasses
         public string sidekick { get; set; }
         public string sidekick_actor { get; set; }
 
-
-
-
-
         // Constructor
-
         public HenchmenClass()
         {
         }

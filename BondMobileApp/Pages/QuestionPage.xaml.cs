@@ -148,7 +148,7 @@ namespace BondMobileApp.Pages
 
 
             // Calling Endpoint
-            HenchmenList = await HenchmenModel.getHenchmentList();
+            //HenchmenList = await HenchmenModel.getHenchmentList();
             Debug.WriteLine("Finished LocalHenchmen");
 
             
