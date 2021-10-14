@@ -52,6 +52,7 @@ namespace BondMobileApp.Pages
         // Constructor
         public QuestionPage(string qtype)
         {
+            Debug.WriteLine("Entering Question Page");
             InitializeComponent();
             BindingContext = HenchmenModel;
             LocalHenchmen();
@@ -141,7 +142,7 @@ namespace BondMobileApp.Pages
         // Gets the data and stores it in a global variable
         async void LocalHenchmen()
         {
-            Debug.WriteLine("Inside LocalHenchmen");
+            Debug.WriteLine("\nQuestionPage: Inside LocalHenchmen");
             //var endpointobject = new Endpoints();
             ////var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
             //HenchmenList = await endpointobject.GetHenchmen();  //GetHenchmen returns the result and stores it
@@ -149,7 +150,7 @@ namespace BondMobileApp.Pages
 
             // Calling Endpoint
             //HenchmenList = await HenchmenModel.getHenchmentList();
-            Debug.WriteLine("Finished LocalHenchmen");
+            Debug.WriteLine("QuestionPage: Finished LocalHenchmen");
 
             
 
@@ -187,13 +188,13 @@ namespace BondMobileApp.Pages
 
         void getQuestion()
         {
-            Debug.WriteLine("\nInside getQuestion");
+            Debug.WriteLine("\nQuestionPage: Inside getQuestion");
             //Debug.WriteLine(QuestionsAsked.Count);
             //Debug.WriteLine(HenchmenList.Count);
 
             if (QuestionsAsked.Count == HenchmenList.Count)
             {
-                Debug.WriteLine("That's All Folks!");
+                Debug.WriteLine("QuestionPage: That's All Folks!");
                 // To start same set of questions again:
                 //Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
                 // To Return to Main Page:

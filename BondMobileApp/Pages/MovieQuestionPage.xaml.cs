@@ -6,9 +6,9 @@ using System.Net.Http;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using BondTrivia.EndpointCalls;  // Needed to be able to call Functions in Endpoints class 
-using System.Collections.ObjectModel;  // Needed for Observable Collection
-using System.ComponentModel;  // Needed for INotifyPropertyChanged
+using BondTrivia.EndpointCalls;         // Needed to be able to call Functions in Endpoints class 
+using System.Collections.ObjectModel;   // Needed for Observable Collection
+using System.ComponentModel;            // Needed for INotifyPropertyChanged
 using System.Linq;
 using BondMobileApp.EndpointDataClasses;
 using BondMobileApp.ViewModels;
@@ -47,16 +47,21 @@ namespace BondMobileApp.Pages
 
         int i = 0; // index 
 
-        HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object
+        HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object        // This line seems to call HenchmenViewModel.cs twice
 
 
         // Constructor
         public MovieQuestionPage()
         {
+            Debug.WriteLine("\nMQP: In Movie Questions Page");
             InitializeComponent();
 
-            BindingContext = model;
 
+            Debug.WriteLine("\nMQP: Before Binding Context");
+            BindingContext = model;                                     // Calls the HenchmenViewModel
+            //BindingContext = new HenchmenViewModel();               //Equivalent to previous line
+
+            Debug.WriteLine("\nMQP: Before Local Henchmen");
             LocalHenchmen();
         }
 
@@ -96,11 +101,12 @@ namespace BondMobileApp.Pages
         // Gets the data and stores it in a global variable
         async void LocalHenchmen()
         {
-            Debug.WriteLine("Inside LocalHenchmen");
-            var endpointobject = new Endpoints();
+            Debug.WriteLine("\nMQP: Inside LocalHenchmen Before Endpoint Call");
+            var endpointObject = new Endpoints();
+            Debug.WriteLine("MQP After object definition");
             //var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
-            HenchmenList = await endpointobject.GetHenchmen();  //GetHenchmen returns the result and stores it
-            Debug.WriteLine("Finished LocalHenchmen");
+            HenchmenList = await endpointObject.GetHenchmen();  //GetHenchmen returns the result and stores it
+            Debug.WriteLine("MQP: Finished LocalHenchmen");
 
             // Puts in a single Henchmen into the binding collection
             //HenchmenDetails.Add(HenchmenList[0]);
@@ -344,17 +350,18 @@ namespace BondMobileApp.Pages
             }
         }
 
-        void IterateOverHenchmenListUsingViewMode(System.Object sender, System.EventArgs e)
-        {
-            if (i < model.localHechmenList.Count)
-            {
-                model.IterateOverHenchmenList(i);
-                i++;
-            }
-            else
-            {
-                i = 0;
-            }
-        }
+        // Could be useful to print out the data in a List
+        //void IterateOverHenchmenListUsingViewMode(System.Object sender, System.EventArgs e)
+        //{
+        //    if (i < model.localHechmenList.Count)
+        //    {
+        //        model.IterateOverHenchmenList(i);
+        //        i++;
+        //    }
+        //    else
+        //    {
+        //        i = 0;
+        //    }
+        //}
     }
 }

@@ -79,7 +79,7 @@
                          <RadioButton Content="{Binding DisplayVillain}" CheckedChanged="RadioButton_CheckedChanged" IsTabStop="False" IsChecked="False"></RadioButton>
                      </StackLayout>
 
-                     <Button Text="Iterate through HenchmenList" Clicked="IterateOverHenchmenListUsingViewMode"></Button>
+                     <!--<Button Text="Iterate through HenchmenList" Clicked="IterateOverHenchmenListUsingViewMode"></Button>-->
 
 
                      <Grid>
