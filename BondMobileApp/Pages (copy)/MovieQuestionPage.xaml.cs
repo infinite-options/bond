@@ -6,20 +6,20 @@ using System.Net.Http;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using BondTrivia.EndpointCalls;  // Needed to be able to call Functions in Endpoints class 
-using System.Collections.ObjectModel;  // Needed for Observable Collection
-using System.ComponentModel;  // Needed for INotifyPropertyChanged
+using BondTrivia.EndpointCalls;         // Needed to be able to call Functions in Endpoints class 
+using System.Collections.ObjectModel;   // Needed for Observable Collection
+using System.ComponentModel;            // Needed for INotifyPropertyChanged
 using System.Linq;
 using BondMobileApp.EndpointDataClasses;
 using BondMobileApp.ViewModels;
 
 namespace BondMobileApp.Pages
 {
-    public partial class QuestionPage : ContentPage
+    public partial class MovieQuestionPage : ContentPage
     {
         // Global variables
 
-        
+
         public int index = 0;
         public int questions = 0;
         public int ans_correct = 0;
@@ -41,49 +41,59 @@ namespace BondMobileApp.Pages
 
 
         public ObservableCollection<HenchmenClass> HenchmenDetails = new ObservableCollection<HenchmenClass>();
-        //public ObservableCollection<displaytext> bindingSource = new ObservableCollection<displaytext>();
+        public ObservableCollection<displaytext> bindingSource = new ObservableCollection<displaytext>();
 
+        // Private attributes of MovieQuestionPage class
 
+        int i = 0; // index 
 
-        public HenchmenViewModel HenchmenModel = new HenchmenViewModel();
-
+        HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object        // This line seems to call HenchmenViewModel.cs twice
 
 
         // Constructor
-        public QuestionPage(string qtype)
+        public MovieQuestionPage()
         {
-            Debug.WriteLine("\nEntering Question Page" + qtype);
+            Debug.WriteLine("\nMQP: In Movie Questions Page");
             InitializeComponent();
-            //BindingContext = HenchmenModel;
+
+
+            Debug.WriteLine("\nMQP: Before Binding Context");
+            BindingContext = model;                                     // Calls the HenchmenViewModel
+            //BindingContext = new HenchmenViewModel();               //Equivalent to previous line
+
+            Debug.WriteLine("\nMQP: Before Local Henchmen");
             LocalHenchmen();
         }
 
 
-      
-
-
-
-
-
-        // LocalHenchmen                                              Calls the Endpoint and gets data in a list
-        //   getQuestion                                              Checks if 10 questions asked OR if all questions have been asked (if < 10), gets an index of the question to ask  
-        //     getHenchmanName ==> Has Question format                Generates Questions and Stores answer, gets 3 other potential answers
-        //     setLabelData (something to do with databinding)
-
-
-
-
-
-
-
-
-
-
-
+ 
         
 
 
+        public class displaytext : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged = delegate { };
+            public string Answer { get; set; }
+            public string updateAnswer
+            {
+                set
+                {
+                    Answer = value;
+                    PropertyChanged(this, new PropertyChangedEventArgs("Answer"));
+                }
 
+            }
+        }
+
+
+
+        void setLabelData()
+        {
+            var displayTextObject = new displaytext();
+            //displayTextObject.Answer = henchmenName.Text;
+            //bindingSource.Add(displayTextObject);
+            //bindingCollection.ItemsSource = bindingSource;
+        }
 
 
 
@@ -91,17 +101,12 @@ namespace BondMobileApp.Pages
         // Gets the data and stores it in a global variable
         async void LocalHenchmen()
         {
-            Debug.WriteLine("\nQuestionPage: Inside LocalHenchmen");
-            //var endpointobject = new Endpoints();
-            ////var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
-            //HenchmenList = await endpointobject.GetHenchmen();  //GetHenchmen returns the result and stores it
-
-
-            // Calling Endpoint
-            //HenchmenList = await HenchmenModel.getHenchmentList();
-            Debug.WriteLine("QuestionPage: Finished LocalHenchmen");
-
-            
+            Debug.WriteLine("\nMQP: Inside LocalHenchmen Before Endpoint Call");
+            var endpointObject = new Endpoints();
+            Debug.WriteLine("MQP After object definition");
+            //var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
+            HenchmenList = await endpointObject.GetHenchmen();  //GetHenchmen returns the result and stores it
+            Debug.WriteLine("MQP: Finished LocalHenchmen");
 
             // Puts in a single Henchmen into the binding collection
             //HenchmenDetails.Add(HenchmenList[0]);
@@ -112,16 +117,7 @@ namespace BondMobileApp.Pages
             {
                 HenchmenDetails.Add(item);
             }
-
-            //bindingCollection.ItemsSource = HenchmenDetails;
-
-
-
-
-
-
-
-
+            bindingCollection.ItemsSource = HenchmenDetails;
 
 
 
@@ -137,13 +133,13 @@ namespace BondMobileApp.Pages
 
         void getQuestion()
         {
-            Debug.WriteLine("\nQuestionPage: Inside getQuestion");
+            Debug.WriteLine("\nInside getQuestion");
             //Debug.WriteLine(QuestionsAsked.Count);
             //Debug.WriteLine(HenchmenList.Count);
 
             if (QuestionsAsked.Count == HenchmenList.Count)
             {
-                Debug.WriteLine("QuestionPage: That's All Folks!");
+                Debug.WriteLine("That's All Folks!");
                 // To start same set of questions again:
                 //Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
                 // To Return to Main Page:
@@ -180,7 +176,7 @@ namespace BondMobileApp.Pages
                     getHenchmanName(nextQuestion);
                     QuestionsAsked.Add(nextQuestion);
                     Debug.WriteLine("After: " + QuestionsAsked.Count);
-                    //setLabelData();
+                    setLabelData();
                 }
             }
         }
@@ -234,7 +230,7 @@ namespace BondMobileApp.Pages
                         // Calls getHenchmanName with a random number in HenchmenList
                         Options.Add(Option);
                         //Debug.WriteLine("Option Count: " + Options.Count);
-                        //setLabelData();
+                        setLabelData();
                     }
                 }
 
@@ -276,7 +272,7 @@ namespace BondMobileApp.Pages
                         // Calls getHenchmanName with a random number in HenchmenList
                         Display.Add(display);
                         //Debug.WriteLine("Display Count: " + Display.Count);
-                        //setLabelData();
+                        setLabelData();
                     }
                 }
 
@@ -354,8 +350,18 @@ namespace BondMobileApp.Pages
             }
         }
 
-
-
-
+        // Could be useful to print out the data in a List
+        //void IterateOverHenchmenListUsingViewMode(System.Object sender, System.EventArgs e)
+        //{
+        //    if (i < model.localHechmenList.Count)
+        //    {
+        //        model.IterateOverHenchmenList(i);
+        //        i++;
+        //    }
+        //    else
+        //    {
+        //        i = 0;
+        //    }
+        //}
     }
 }

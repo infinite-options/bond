@@ -6,9 +6,9 @@
     x:Class="BondMobileApp.Pages.QuestionPage">
 
     <ContentPage.BindingContext>
-        <viewmodels:QuestionsViewModel>
+        <viewmodels:HenchmenViewModel>
 
-        </viewmodels:QuestionsViewModel>
+        </viewmodels:HenchmenViewModel>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>

@@ -23,11 +23,13 @@
     <None Remove="EndpointCalls\" />
     <None Remove="ViewModels\" />
     <None Remove="EndpointDataClasses\" />
+    <None Remove="Pages %28copy%29\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="EndpointCalls\" />
     <Folder Include="ViewModels\" />
     <Folder Include="EndpointDataClasses\" />
+    <Folder Include="Pages %28copy%29\" />
   </ItemGroup>
 </Project>
