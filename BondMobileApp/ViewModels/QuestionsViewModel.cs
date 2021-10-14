@@ -21,6 +21,8 @@ namespace BondMobileApp.ViewModels                                              
         int _questions = 0;
         int _ans_correct = 0;
         int _ans_wrong = 0;
+        public string Question = "";
+        
         List<HenchmenClass> _options = null;
 
         //public List<string> QuestionsAsked = new List<string>();
@@ -126,6 +128,11 @@ namespace BondMobileApp.ViewModels                                              
 
 
         //Constructor
+        public QuestionsViewModel()                                             //Need a default constructor without arguements
+        {
+
+        }
+
         public QuestionsViewModel(string qtype)
         {
             Debug.WriteLine("\nQVM: Entering QuestionsViewModel.cs");
@@ -137,13 +144,10 @@ namespace BondMobileApp.ViewModels                                              
         {
             Debug.WriteLine("QVM: CallEndpoint");
             var endpointObject = new Endpoints();
-            _options = await endpointObject.GetData(qtype);
+            Options = await endpointObject.GetData(qtype);
             //How do you get the data from _options to Options?
             // Loop through the _options and add each item to the Options binding collection
-            foreach (HenchmenClass item in _options)
-            {
-                Options.Add(item);
-            }
+            
             SelectQuestion();
 
         }
@@ -151,12 +155,6 @@ namespace BondMobileApp.ViewModels                                              
         private void SelectQuestion()
         {
             Debug.WriteLine("QVM: SelectQuestion");
-            GetQuestion();
-        }
-
-        private void GetQuestion()
-        {
-            Debug.WriteLine("QVM: GetQuestion");
             if (QuestionsAsked.Count == Options.Count)
             {
                 Debug.WriteLine("QVM: QuestionPage: That's All Folks!");
@@ -171,39 +169,110 @@ namespace BondMobileApp.ViewModels                                              
 
             else
             {
-                // Print which questions have been asked already
-                // Debug.WriteLine("Questions asked so far:");
-                for (int i = 0; i < QuestionsAsked.Count; i++)
-                {
-                    Debug.WriteLine(QuestionsAsked[i]);
-                }
-
-                // Generate Random number for next Question
-                Random n = new Random();
-                int nextQuestion = n.Next(Options.Count);
-                Debug.WriteLine("QVM: Next Question Index: " + nextQuestion);
-
-                // Check is random number has already been used
-                if (QuestionsAsked.Contains(nextQuestion) == true)
-                {
-                    Debug.WriteLine("QVM: Question already asked!");
-                    GetQuestion();
-                }
-                else
-                {
-                    Debug.WriteLine("QVM: Ask Question!");
-                    // Calls getHenchmanName with a random number in HenchmenList
-                    GetOtherOptions(nextQuestion);
-                    QuestionsAsked.Add(nextQuestion);
-                    Debug.WriteLine("QVM: After: " + QuestionsAsked.Count);
-                    //setLabelData();
-                }
+                GetQuestion();
             }
+
+        }
+
+        private void GetQuestion()
+        {
+            
+            // Print which questions have been asked already
+            // Debug.WriteLine("Questions asked so far:");
+            for (int i = 0; i < QuestionsAsked.Count; i++)
+            {
+                Debug.WriteLine(QuestionsAsked[i]);
+            }
+
+            // Generate Random number for next Question
+            Random n = new Random();
+            int nextQuestion = n.Next(Options.Count);
+            Debug.WriteLine("QVM: Next Question Index: " + nextQuestion);
+
+            // Check is random number has already been used
+            if (QuestionsAsked.Contains(nextQuestion) == true)
+            {
+                Debug.WriteLine("QVM: Question already asked!");
+                GetQuestion();
+            }
+            else
+            {
+                Debug.WriteLine("QVM: Ask Question!" + nextQuestion);
+                // Get other options
+                GetOtherOptions(nextQuestion);
+
+                questions = questions + 1;
+                Question = "Which Film featured " + Options[nextQuestion].sidekick + "?";
+
+                QuestionsAsked.Add(nextQuestion);
+                Debug.WriteLine("QVM: After: " + QuestionsAsked.Count);
+                //setLabelData();
+                }
+            
         }
 
         private void GetOtherOptions(int n)
         {
             Debug.WriteLine("QVM: Get Other Options");
+            OtherOptions.Add(n);
+
+            while (OtherOptions.Count < 4)
+            {
+                // generate a random number
+                Random m = new Random();
+                int Option = m.Next(Options.Count);
+                Debug.WriteLine("Option: " + Option);
+
+                // check if it is in the list or if it is equal to the question
+                if (OtherOptions.Contains(Option) == true)
+                {
+                    //Debug.WriteLine("Option already on List!");
+                }
+                // if unique, add it to the list
+                else
+                {
+                    //Debug.WriteLine("Add Option!");
+                    // Calls getHenchmanName with a random number in HenchmenList
+                    OtherOptions.Add(Option);
+                    //Debug.WriteLine("Option Count: " + Options.Count);
+                    //setLabelData();
+                }
+            }
+
+            // Verify that all answers are unique
+            Debug.WriteLine("\nVerify Option are unique");
+            for (int i = 0; i < OtherOptions.Count; i++)
+            {
+                Debug.WriteLine(OtherOptions[i]);
+            }
+
+            // Randomize the Order for display
+            while (Display.Count < 4)
+            {
+                // Randomize answers for display
+                Random d = new Random();
+                int display = d.Next(OtherOptions.Count);
+                //Debug.WriteLine("Display Order: " + display);
+
+                // check if it is in the list or if it is equal to the question
+                if (Display.Contains(display) == true)
+                {
+                    //Debug.WriteLine("Option already on List!");
+                }
+                // if unique, add it to the list
+                else
+                {
+                    //Debug.WriteLine("Add Option!");
+                    // Calls getHenchmanName with a random number in HenchmenList
+                    Display.Add(display);
+                    //Debug.WriteLine("Display Count: " + Display.Count);
+                    //setLabelData();
+                }
+            }
+
+
+
+
         }
     }
 }

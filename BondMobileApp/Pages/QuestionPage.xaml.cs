@@ -54,8 +54,9 @@ namespace BondMobileApp.Pages
         {
             Debug.WriteLine("\nEntering Question Page" + qtype);
             InitializeComponent();
+            BindingContext = new QuestionsViewModel(qtype);
             //BindingContext = HenchmenModel;
-            LocalHenchmen();
+            //LocalHenchmen();
         }
 
 

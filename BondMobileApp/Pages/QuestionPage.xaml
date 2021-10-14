@@ -25,6 +25,8 @@
                      <Rectangle  Background="red"></Rectangle>
 
                      <!--Complete concatination in the code behind-->
+                     <Label x:Name="Question"></Label>
+                     <Label Text="{Binding Question}"></Label>
                      <Label x:Name="dynamicHenchmenName" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
                       <Label x:Name="question" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
 
