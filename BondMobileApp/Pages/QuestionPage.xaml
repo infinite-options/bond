@@ -25,10 +25,7 @@
                      <Rectangle  Background="red"></Rectangle>
 
                      <!--Complete concatination in the code behind-->
-                     <Label x:Name="Question"></Label>
-                     <Label Text="{Binding Question}"></Label>
-                     <Label x:Name="dynamicHenchmenName" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
-                      <Label x:Name="question" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
+                     <Label Text="{Binding Question}" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
 
                      <Rectangle Background="red"></Rectangle>
 
@@ -38,24 +35,24 @@
 
                      <!--Answers-->
 
-                     <StackLayout Margin="20">
+                     <!--<StackLayout Margin="20">
                          <RadioButton x:Name="Option0" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
                          <RadioButton x:Name="Option1" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
                          <RadioButton x:Name="Option2" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
                          <RadioButton x:Name="Option3" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                     </StackLayout>
-
-                      <!--<StackLayout Margin="20">
-                         <RadioButton Content="{Binding TestOption0}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton Content="{Binding TestOption1}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton Content="{Binding TestOption2}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton Content="{Binding TestOption3}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
                      </StackLayout>-->
 
-                     <Label Text="{Binding TestOption0}" TextColor="Black" FontSize="Large"></Label>
+                      <StackLayout Margin="20">
+                         <RadioButton Content="{Binding Display[0]}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding Display[1]}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding Display[2]}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                         <RadioButton Content="{Binding Display[3]}" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
+                     </StackLayout>
+
+                     <!--<Label Text="{Binding TestOption0}" TextColor="Black" FontSize="Large"></Label>
                      <Label Text="{Binding TestOption1}" TextColor="Black" FontSize="Large"></Label>
                      <Label Text="{Binding TestOption2}" TextColor="Black" FontSize="Large"></Label>
-                     <Label Text="{Binding TestOption3}" TextColor="Black" FontSize="Large"></Label>
+                     <Label Text="{Binding TestOption3}" TextColor="Black" FontSize="Large"></Label>-->
 
 
 
@@ -73,11 +70,11 @@
                              <RowDefinition></RowDefinition>
                          </Grid.RowDefinitions>
                          <Label Text="Number of Questions asked: " Grid.Row="0" Grid.Column="0"></Label>
-                         <Label  x:Name="questionsX" Text="" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
+                         <Label  Text="{Binding questions}" TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
                          <Label Text="Total Number of Correct Answers" Grid.Row="1" Grid.Column="0"></Label>
-                         <Label  x:Name="ans_correctX" Text="" TextColor="Red" Grid.Row="1" Grid.Column="1"></Label>
+                         <Label  Text="{Binding ans_correct}" TextColor="Red" Grid.Row="1" Grid.Column="1"></Label>
                          <Label Text="Total Number of Incorrect Answers" Grid.Row="2" Grid.Column="0"></Label>
-                         <Label  x:Name="ans_wrongX" Text="" TextColor="Red" Grid.Row="2" Grid.Column="1"></Label>
+                         <Label  Text="{Binding ans_wrong}" TextColor="Red" Grid.Row="2" Grid.Column="1"></Label>
                      </Grid>
 
 
@@ -85,7 +82,7 @@
 
                      <!--Button-->
 
-                     <Button Text="Results Page" Clicked="Button_Clicked" TextColor="White"  BackgroundColor="Blue" Margin="90,20"></Button>
+                     <!--<Button Text="Results Page" Clicked="Button_Clicked" TextColor="White"  BackgroundColor="Blue" Margin="90,20"></Button>-->
                      
 
 

@@ -274,5 +274,43 @@ namespace BondMobileApp.ViewModels                                              
 
 
         }
+
+
+        public void RadioButton_CheckedChanged(System.Object sender, Xamarin.Forms.CheckedChangedEventArgs e)  // sender is of class System.Object and must be converted in the proper type
+        {
+            Debug.WriteLine("\nRadio Button Clicked");
+            Debug.WriteLine("sender: " + sender);
+            Debug.WriteLine("e: " + e);
+
+            var s = sender;
+            var radioEvent = e;
+
+            // converts sender to Radio Button type
+            var radioButton = (RadioButton)sender;
+            // Once in Radio Button type now you can see and use content
+            string contentString = radioButton.Content.ToString();
+            Debug.WriteLine("contentString: " + contentString);
+
+            if (radioButton.IsChecked == true)
+            {
+
+                if (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].movie_title)
+                {
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+                    Debug.WriteLine("Correct Answer");
+                    ans_correct = ans_correct + 1;
+                    radioButton.IsChecked = false;
+                    SelectQuestion();
+
+                }
+                else
+                {
+                    Application.Current.MainPage.DisplayAlert("Whoops", "Wrong Agian Mr. Bond!", "OK");
+                    Debug.WriteLine("Wrong Answer");
+                    ans_wrong = ans_wrong + 1;
+                }
+            }
+        }
+
     }
 }

@@ -5,9 +5,9 @@
     xmlns:viewmodels="clr-namespace:BondMobileApp.ViewModels"
     x:Class="BondMobileApp.Pages.MovieQuestionPage">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <viewmodels:HenchmenViewModel></viewmodels:HenchmenViewModel>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
 
 
     <ContentPage.Content>

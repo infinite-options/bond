@@ -13,6 +13,7 @@ namespace BondMobileApp
 
             //MainPage = new MainPage();
             MainPage = new MainSelectonPage();
+            //MainPage = new QuestionPage("villain");
         }
 
         protected override void OnStart()
