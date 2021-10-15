@@ -30,6 +30,11 @@
                      </StackLayout>
 
                      <StackLayout Margin="50,20,50,0">
+                         <ImageButton Source="bond_image.jpeg" Clicked="Henchmen_Questions" ></ImageButton>
+                         <Label Text="Henchmen" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>
+                     </StackLayout>
+
+                     <StackLayout Margin="50,20,50,0">
                          <ImageButton Source="bond_image.jpeg" Clicked="Plot_Questions" ></ImageButton>
                          <Label Text="Plots" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>
                      </StackLayout>
@@ -37,6 +42,11 @@
                      <StackLayout Margin="50,20,50,0">
                          <ImageButton Source="bond_image.jpeg" Clicked="Line_Questions" ></ImageButton>
                          <Label Text="Lines" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>
+                     </StackLayout>
+
+                     <StackLayout Margin="50,20,50,0">
+                         <ImageButton Source="bond_image.jpeg" Clicked="Song_Questions" ></ImageButton>
+                         <Label Text="Songs" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>
                      </StackLayout>
                  
                 </StackLayout>

@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace BondMobileApp.Pages
 {
-    public partial class QuestionPage : ContentPage
+    public partial class VillainsQuestionPage : ContentPage
     {
         // Global variables
 
@@ -30,7 +30,7 @@ namespace BondMobileApp.Pages
         public List<int> Display = new List<int>();
 
         // List of Endpoint Data
-        public List<HenchmenClass> Options { get; set; }
+        public List<VillainsClass> Options { get; set; }
 
 
 
@@ -40,7 +40,7 @@ namespace BondMobileApp.Pages
 
 
         // Constructor
-        public QuestionPage(string qtype)
+        public VillainsQuestionPage(string qtype)
         {
             Debug.WriteLine("\nEntering Question Page Code Behind " + qtype);
             InitializeComponent();
@@ -53,17 +53,16 @@ namespace BondMobileApp.Pages
 
         async void CallEndpoint(string qtype)
         {
-            Debug.WriteLine("QP: CallEndpoint");
+            Debug.WriteLine("VQP: CallEndpoint");
             var endpointObject = new Endpoints();
-            Options = await endpointObject.GetData(qtype);
-            //How do you get the data from _options to Options?
-            // Loop through the _options and add each item to the Options binding collection
+            Options = await endpointObject.GetVillainData(qtype);
+
 
             // Verify Options has the data needed
             Debug.WriteLine("\nVerify Options content");
             for (int i = 0; i < Options.Count; i++)
             {
-                Debug.WriteLine(Options[i].sidekick);
+                Debug.WriteLine(Options[i].villain);
             }
 
             SelectQuestion();
@@ -72,10 +71,10 @@ namespace BondMobileApp.Pages
 
         private void SelectQuestion()
         {
-            Debug.WriteLine("QP: SelectQuestion");
-            if (QuestionsAsked.Count == Options.Count)
+            Debug.WriteLine("VQP: SelectQuestion");
+            if (QuestionsAsked.Count == Options.Count || QuestionsAsked.Count >= 10)
             {
-                Debug.WriteLine("QP: QuestionPage: That's All Folks!");
+                Debug.WriteLine("VQP: QuestionPage: That's All Folks!");
                 // To start same set of questions again:
                 //Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
                 // To Return to Main Page:
@@ -105,26 +104,26 @@ namespace BondMobileApp.Pages
             // Generate Random number for next Question
             Random n = new Random();
             int nextQuestion = n.Next(Options.Count);
-            Debug.WriteLine("QP: Next Question Index: " + nextQuestion);
+            Debug.WriteLine("VQP: Next Question Index: " + nextQuestion);
 
             // Check is random number has already been used
             if (QuestionsAsked.Contains(nextQuestion) == true)
             {
-                Debug.WriteLine("QP: Question already asked!");
+                Debug.WriteLine("VQP: Question already asked!");
                 GetQuestion();
             }
             else
             {
-                Debug.WriteLine("QP: Ask Question! " + nextQuestion);
+                Debug.WriteLine("VQP: Ask Question! " + nextQuestion);
                 // Get other options
                 GetOtherOptions(nextQuestion);
 
                 questions = questions + 1;
-                Question = "Which Film featured " + Options[nextQuestion].sidekick + "?";
+                Question = "Which Film featured " + Options[nextQuestion].villain + "?";
                 DisplayQuestion.Text = Question;
 
                 QuestionsAsked.Add(nextQuestion);
-                Debug.WriteLine("QP: After: " + QuestionsAsked.Count);
+                Debug.WriteLine("VQP: After: " + QuestionsAsked.Count);
                 //setLabelData();
             }
 
@@ -132,7 +131,7 @@ namespace BondMobileApp.Pages
 
         private void GetOtherOptions(int n)
         {
-            Debug.WriteLine("QP: Get Other Options");
+            Debug.WriteLine("VQP: Get Other Options");
             OtherOptions.Clear();
             OtherOptions.Add(n);
 
@@ -199,7 +198,7 @@ namespace BondMobileApp.Pages
             {
                 // Randomize answers for display
                 Debug.WriteLine("OtherOptions Count: " + OtherOptions.Count);
-                
+
                 Random d = new Random();
                 int display = d.Next(OtherOptions.Count);
                 Display.Add(OtherOptions[display]);
@@ -215,8 +214,8 @@ namespace BondMobileApp.Pages
 
 
 
-                // Verify that all answers are unique
-                Debug.WriteLine("\nVerify Display Options");
+            // Verify that all answers are unique
+            Debug.WriteLine("\nVerify Display Options");
             for (int i = 0; i < Display.Count; i++)
             {
                 Debug.WriteLine(Display[i]);
@@ -276,7 +275,7 @@ namespace BondMobileApp.Pages
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
             Application.Current.MainPage = new NavigationPage(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()));
-            
+
         }
     }
 }

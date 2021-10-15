@@ -47,7 +47,7 @@ namespace BondMobileApp.Pages
 
         int i = 0; // index 
 
-        HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object        // This line seems to call HenchmenViewModel.cs twice
+        //HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object        // This line seems to call HenchmenViewModel.cs twice
 
 
         // Constructor
@@ -58,7 +58,7 @@ namespace BondMobileApp.Pages
 
 
             Debug.WriteLine("\nMQP: Before Binding Context");
-            BindingContext = model;                                     // Calls the HenchmenViewModel
+            //BindingContext = model;                                     // Calls the HenchmenViewModel
             //BindingContext = new HenchmenViewModel();               //Equivalent to previous line
 
             Debug.WriteLine("\nMQP: Before Local Henchmen");

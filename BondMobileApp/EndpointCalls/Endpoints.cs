@@ -64,7 +64,7 @@ namespace BondTrivia.EndpointCalls
         // Endpoint Step 3: Perform the Task of calling the Endpoint
         public async Task<List<HenchmenClass>> GetData(string qtype)
         {
-            Debug.WriteLine("\nEndpoints.cs: Inside GetData Endpoint Call");
+            Debug.WriteLine("\nEndpoints.cs: Inside GetData Endpoint Call " + qtype);
             baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/";
             suffix = "api/v2/sidekicks";
             //baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/api/v2/";
@@ -84,11 +84,80 @@ namespace BondTrivia.EndpointCalls
             if (endpointCall.IsSuccessStatusCode)  // Check if endpoint call was successful
             {
                 var endpointContentString = await endpointCall.Content.ReadAsStringAsync();  // Converts data into a String and stores it
-                //Debug.WriteLine("Endpoint.cs: From Endpoint Call: " + endpointContentString);  // Print statement to see what data was received.  Especially valuable with breakpoints
+                Debug.WriteLine("Endpoint.cs: From Endpoint Call: " + endpointContentString);  // Print statement to see what data was received.  Especially valuable with breakpoints
                 result = JsonConvert.DeserializeObject<List<HenchmenClass>>(endpointContentString);  // Put the results in result for return.  Put data into list.  List of Objects each of Type Henchmen
             }
 
-            Debug.WriteLine("Endpoint.cs: End GetHenchmen Endpoint Call");
+            Debug.WriteLine("Endpoint.cs: End GetData Endpoint Call");
+            Debug.WriteLine("Endpoint.cs: Print result before return statement: " + result);
+
+            return result;  // if endpoint call is successful return result OR return null as initialized
+        }
+
+
+        // Endpoint Step 3: Perform the Task of calling the Endpoint
+        public async Task<List<BondGirlClass>> GetBondGirlData(string qtype)
+        {
+            Debug.WriteLine("\nEndpoints.cs: Inside GetBondGirlData Endpoint Call " + qtype);
+            //baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/";
+            //suffix = "api/v2/sidekicks";
+            baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/api/v2/";
+            suffix = qtype;
+            endpoint = baseURL + suffix;
+            Debug.WriteLine("Endpoints.cs: Endpoint URL: " + endpoint);
+
+            // Set the result of the upcoming call to null
+            List<BondGirlClass> result = null;
+            Debug.WriteLine("Endpoints.cs: 1 " + result);
+            var client = new HttpClient();  // HttpClient requires using System.Net.Http which defines what dot attributes it has
+            Debug.WriteLine("Endpoints.cs: 2 " + client);
+            var endpointCall = await client.GetAsync(endpoint);  // Endpoint call definition.  Requires Newtonsoft.Json;  endpointCall variable has dot attributes
+            Debug.WriteLine("Endpoints.cs: endpoint called");
+            Debug.WriteLine("Endpoints.cs: After endpoint call Status Code " + endpointCall.IsSuccessStatusCode);
+
+            if (endpointCall.IsSuccessStatusCode)  // Check if endpoint call was successful
+            {
+                var endpointContentString = await endpointCall.Content.ReadAsStringAsync();  // Converts data into a String and stores it
+                Debug.WriteLine("Endpoint.cs: From Endpoint Call: " + endpointContentString);  // Print statement to see what data was received.  Especially valuable with breakpoints
+                result = JsonConvert.DeserializeObject<List<BondGirlClass>>(endpointContentString);  // Put the results in result for return.  Put data into list.  List of Objects each of Type Henchmen
+            }
+
+            Debug.WriteLine("Endpoint.cs: End GetData Endpoint Call");
+            Debug.WriteLine("Endpoint.cs: Print result before return statement: " + result);
+
+            return result;  // if endpoint call is successful return result OR return null as initialized
+        }
+
+
+
+        // Endpoint Step 3: Perform the Task of calling the Endpoint
+        public async Task<List<VillainsClass>> GetVillainData(string qtype)
+        {
+            Debug.WriteLine("\nEndpoints.cs: Inside GetVillainData Endpoint Call " + qtype);
+            //baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/";
+            //suffix = "api/v2/sidekicks";
+            baseURL = "https://iznfqs92n3.execute-api.us-west-1.amazonaws.com/dev/api/v2/";
+            suffix = qtype;
+            endpoint = baseURL + suffix;
+            Debug.WriteLine("Endpoints.cs: Endpoint URL: " + endpoint);
+
+            // Set the result of the upcoming call to null
+            List<VillainsClass> result = null;
+            Debug.WriteLine("Endpoints.cs: 1 " + result);
+            var client = new HttpClient();  // HttpClient requires using System.Net.Http which defines what dot attributes it has
+            Debug.WriteLine("Endpoints.cs: 2 " + client);
+            var endpointCall = await client.GetAsync(endpoint);  // Endpoint call definition.  Requires Newtonsoft.Json;  endpointCall variable has dot attributes
+            Debug.WriteLine("Endpoints.cs: endpoint called");
+            Debug.WriteLine("Endpoints.cs: After endpoint call Status Code " + endpointCall.IsSuccessStatusCode);
+
+            if (endpointCall.IsSuccessStatusCode)  // Check if endpoint call was successful
+            {
+                var endpointContentString = await endpointCall.Content.ReadAsStringAsync();  // Converts data into a String and stores it
+                Debug.WriteLine("Endpoint.cs: From Endpoint Call: " + endpointContentString);  // Print statement to see what data was received.  Especially valuable with breakpoints
+                result = JsonConvert.DeserializeObject<List<VillainsClass>>(endpointContentString);  // Put the results in result for return.  Put data into list.  List of Objects each of Type Henchmen
+            }
+
+            Debug.WriteLine("Endpoint.cs: End GetData Endpoint Call");
             Debug.WriteLine("Endpoint.cs: Print result before return statement: " + result);
 
             return result;  // if endpoint call is successful return result OR return null as initialized

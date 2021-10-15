@@ -2,8 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:viewmodels="clr-namespace:BondMobileApp.ViewModels"
-    x:Class="BondMobileApp.Pages.QuestionPage">
+    x:Class="BondMobileApp.Pages.BondGirlsQuestionPage">
 
 
 
@@ -11,7 +10,7 @@
         <StackLayout>
 
              <Label Text="Questions Page" BackgroundColor="BlanchedAlmond" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,10,30,10"/>
-             <Label Text="So you think you know the answers Mr Bond" HorizontalTextAlignment="Center" FontSize="Header" Padding="30,10,30,10"/>
+             <Label Text="So you think you're up for the job Mr Bond" HorizontalTextAlignment="Center" FontSize="Header" Padding="30,10,30,10"/>
 
              <ScrollView>
 

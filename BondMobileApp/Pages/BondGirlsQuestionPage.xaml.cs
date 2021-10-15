@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace BondMobileApp.Pages
 {
-    public partial class QuestionPage : ContentPage
+    public partial class BondGirlsQuestionPage : ContentPage
     {
         // Global variables
 
@@ -30,19 +30,24 @@ namespace BondMobileApp.Pages
         public List<int> Display = new List<int>();
 
         // List of Endpoint Data
-        public List<HenchmenClass> Options { get; set; }
+        public List<BondGirlClass> Options { get; set; }
 
 
 
 
-
+        //Program Plan:
+        //1.Call the endpoint and get data
+        //2.Select the Type of Question
+        //3.Select the Question/Answer combination
+        //4.Select 3 Other Options
+        //5.Randomize the DisplayOrder
 
 
 
         // Constructor
-        public QuestionPage(string qtype)
+        public BondGirlsQuestionPage(string qtype)
         {
-            Debug.WriteLine("\nEntering Question Page Code Behind " + qtype);
+            Debug.WriteLine("\nEntering Bond Girl Question Page Code Behind " + qtype);
             InitializeComponent();
             CallEndpoint(qtype);
 
@@ -53,29 +58,29 @@ namespace BondMobileApp.Pages
 
         async void CallEndpoint(string qtype)
         {
-            Debug.WriteLine("QP: CallEndpoint");
+            Debug.WriteLine("BGQP: CallEndpoint");
             var endpointObject = new Endpoints();
-            Options = await endpointObject.GetData(qtype);
-            //How do you get the data from _options to Options?
-            // Loop through the _options and add each item to the Options binding collection
+            Options = await endpointObject.GetBondGirlData(qtype);                      // Puts data directly into Options
 
             // Verify Options has the data needed
             Debug.WriteLine("\nVerify Options content");
             for (int i = 0; i < Options.Count; i++)
             {
-                Debug.WriteLine(Options[i].sidekick);
+                Debug.WriteLine(Options[i].bond_girl);
             }
 
-            SelectQuestion();
+            GetQuestion();
 
         }
 
-        private void SelectQuestion()
+
+        private void GetQuestion()
         {
-            Debug.WriteLine("QP: SelectQuestion");
-            if (QuestionsAsked.Count == Options.Count)
+
+            Debug.WriteLine("\nBGQP: GetQuestion");
+            if (QuestionsAsked.Count == Options.Count || QuestionsAsked.Count >= 10)        // Limit to number of questions in db or 10
             {
-                Debug.WriteLine("QP: QuestionPage: That's All Folks!");
+                Debug.WriteLine("BGQP: QuestionPage: That's All Folks!");
                 // To start same set of questions again:
                 //Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
                 // To Return to Main Page:
@@ -87,52 +92,45 @@ namespace BondMobileApp.Pages
 
             else
             {
-                GetQuestion();
+
+                // Print which questions have been asked already
+                // Debug.WriteLine("Questions asked so far:");
+                for (int i = 0; i < QuestionsAsked.Count; i++)
+                {
+                    Debug.WriteLine(QuestionsAsked[i]);
+                }
+
+                // Generate Random number for next Question
+                Random n = new Random();
+                int nextQuestion = n.Next(Options.Count);
+                Debug.WriteLine("BGQP: Next Question Index: " + nextQuestion);
+
+                // Check is random number has already been used
+                if (QuestionsAsked.Contains(nextQuestion) == true)
+                {
+                    Debug.WriteLine("BGQP: Question already asked!");
+                    GetQuestion();
+                }
+                else
+                {
+                    Debug.WriteLine("BGQP: Ask Question! " + nextQuestion);
+                    // Get other options
+                    GetOtherOptions(nextQuestion);
+
+                    questions = questions + 1;
+                    Question = "Which Film featured " + Options[nextQuestion].bond_girl + "?";
+                    DisplayQuestion.Text = Question;
+
+                    QuestionsAsked.Add(nextQuestion);
+                    Debug.WriteLine("BGQP: After: " + QuestionsAsked.Count);
+                    //setLabelData();
+                }
             }
-
-        }
-
-        private void GetQuestion()
-        {
-
-            // Print which questions have been asked already
-            // Debug.WriteLine("Questions asked so far:");
-            for (int i = 0; i < QuestionsAsked.Count; i++)
-            {
-                Debug.WriteLine(QuestionsAsked[i]);
-            }
-
-            // Generate Random number for next Question
-            Random n = new Random();
-            int nextQuestion = n.Next(Options.Count);
-            Debug.WriteLine("QP: Next Question Index: " + nextQuestion);
-
-            // Check is random number has already been used
-            if (QuestionsAsked.Contains(nextQuestion) == true)
-            {
-                Debug.WriteLine("QP: Question already asked!");
-                GetQuestion();
-            }
-            else
-            {
-                Debug.WriteLine("QP: Ask Question! " + nextQuestion);
-                // Get other options
-                GetOtherOptions(nextQuestion);
-
-                questions = questions + 1;
-                Question = "Which Film featured " + Options[nextQuestion].sidekick + "?";
-                DisplayQuestion.Text = Question;
-
-                QuestionsAsked.Add(nextQuestion);
-                Debug.WriteLine("QP: After: " + QuestionsAsked.Count);
-                //setLabelData();
-            }
-
         }
 
         private void GetOtherOptions(int n)
         {
-            Debug.WriteLine("QP: Get Other Options");
+            Debug.WriteLine("BGQP: Get Other Options");
             OtherOptions.Clear();
             OtherOptions.Add(n);
 
@@ -167,67 +165,45 @@ namespace BondMobileApp.Pages
             }
 
             // Randomize the Order for display
-            //Display.Clear();
-            //while (Display.Count < 4)
-            //{
-            //    // Randomize answers for display
-            //    Random d = new Random();
-            //    int display = d.Next(OtherOptions.Count);
-            //    //Debug.WriteLine("Display Order: " + display);
-
-            //    // check if it is in the list or if it is equal to the question
-            //    if (Display.Contains(display) == true)
-            //    {
-            //        //Debug.WriteLine("Option already on List!");
-            //    }
-            //    // if unique, add it to the list
-            //    else
-            //    {
-            //        //Debug.WriteLine("Add Option!");
-            //        // Calls getHenchmanName with a random number in HenchmenList
-            //        Display.Add(display);
-            //        //Debug.WriteLine("Display Count: " + Display.Count);
-            //        //setLabelData();
-            //    }
-            //}
-
-
-
-            // Randomize the Order for display - New Approach
             Display.Clear();
             while (Display.Count < 4)
             {
                 // Randomize answers for display
-                Debug.WriteLine("OtherOptions Count: " + OtherOptions.Count);
-                
                 Random d = new Random();
                 int display = d.Next(OtherOptions.Count);
-                Display.Add(OtherOptions[display]);
-                Debug.WriteLine("Display Count: " + Display.Count);
-                OtherOptions.RemoveAt(display);
+                //Debug.WriteLine("Display Order: " + display);
+
+                // check if it is in the list or if it is equal to the question
+                if (Display.Contains(display) == true)
+                {
+                    //Debug.WriteLine("Option already on List!");
+                }
+                // if unique, add it to the list
+                else
+                {
+                    //Debug.WriteLine("Add Option!");
+                    // Calls getHenchmanName with a random number in HenchmenList
+                    Display.Add(display);
+                    //Debug.WriteLine("Display Count: " + Display.Count);
+                    //setLabelData();
+                }
             }
 
 
 
-
-
-
-
-
-
-                // Verify that all answers are unique
-                Debug.WriteLine("\nVerify Display Options");
+            // Verify that all answers are unique
+            Debug.WriteLine("\nVerify Display Options");
             for (int i = 0; i < Display.Count; i++)
             {
                 Debug.WriteLine(Display[i]);
-                Debug.WriteLine(Options[Display[i]].movie_title);
+                Debug.WriteLine(Options[OtherOptions[Display[i]]].movie_title);
             }
 
 
-            Option0.Content = Options[Display[0]].movie_title;
-            Option1.Content = Options[Display[1]].movie_title;
-            Option2.Content = Options[Display[2]].movie_title;
-            Option3.Content = Options[Display[3]].movie_title;
+            Option0.Content = Options[OtherOptions[Display[0]]].movie_title;
+            Option1.Content = Options[OtherOptions[Display[1]]].movie_title;
+            Option2.Content = Options[OtherOptions[Display[2]]].movie_title;
+            Option3.Content = Options[OtherOptions[Display[3]]].movie_title;
 
 
         }
@@ -257,7 +233,7 @@ namespace BondMobileApp.Pages
                     Debug.WriteLine("Correct Answer");
                     ans_correct = ans_correct + 1;
                     radioButton.IsChecked = false;
-                    SelectQuestion();
+                    GetQuestion();
 
                 }
                 else
@@ -276,7 +252,7 @@ namespace BondMobileApp.Pages
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
             Application.Current.MainPage = new NavigationPage(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()));
-            
+
         }
     }
 }

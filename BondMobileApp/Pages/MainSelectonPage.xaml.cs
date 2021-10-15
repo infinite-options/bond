@@ -28,21 +28,28 @@ namespace BondMobileApp.Pages
 
         //void Movie_Questions(System.Object sender, System.EventArgs e)
         //{
-        //    qtype = "movie";
+        //    qtype = "movies";
         //    Application.Current.MainPage = new NavigationPage(new QuestionPage(qtype));
         //}
 
         void BondGirl_Questions(System.Object sender, System.EventArgs e)
         {
             Debug.WriteLine("Bond Girl Button Pressed");
-            qtype = "bondgirl";
-            Application.Current.MainPage = new NavigationPage(new QuestionPage(qtype));
+            qtype = "girls";
+            Application.Current.MainPage = new NavigationPage(new BondGirlsQuestionPage(qtype));
         }
 
         void Villain_Questions(System.Object sender, System.EventArgs e)
         {
             Debug.WriteLine("Villain Button Pressed");
-            qtype = "villain";
+            qtype = "villains";
+            Application.Current.MainPage = new NavigationPage(new VillainsQuestionPage(qtype));
+        }
+
+        void Henchmen_Questions(System.Object sender, System.EventArgs e)
+        {
+            Debug.WriteLine("Henchmen Button Pressed");
+            qtype = "sidekicks";
             Application.Current.MainPage = new NavigationPage(new QuestionPage(qtype));
         }
 
@@ -58,6 +65,13 @@ namespace BondMobileApp.Pages
             Debug.WriteLine("Lines Button Pressed");
             qtype = "line";
             Application.Current.MainPage = new NavigationPage(new ResultsPage("3","2","1"));
+        }
+
+        void Song_Questions(System.Object sender, System.EventArgs e)
+        {
+            Debug.WriteLine("Songs Button Pressed");
+            qtype = "songs";
+            Application.Current.MainPage = new NavigationPage(new ResultsPage("3", "2", "1"));
         }
     }
 }

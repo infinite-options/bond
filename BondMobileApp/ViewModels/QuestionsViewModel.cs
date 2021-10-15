@@ -110,6 +110,44 @@ namespace BondMobileApp.ViewModels                                              
         }
 
 
+        //public void RadioButton_CheckedChanged(System.Object sender, Xamarin.Forms.CheckedChangedEventArgs e)  // sender is of class System.Object and must be converted in the proper type
+        //{
+        //    Debug.WriteLine("\nRadio Button Clicked");
+        //    Debug.WriteLine("sender: " + sender);
+        //    Debug.WriteLine("e: " + e);
+
+        //    var s = sender;
+        //    var radioEvent = e;
+
+        //    // converts sender to Radio Button type
+        //    var radioButton = (RadioButton)sender;
+        //    // Once in Radio Button type now you can see and use content
+        //    string contentString = radioButton.Content.ToString();
+        //    Debug.WriteLine("contentString: " + contentString);
+
+        //    if (radioButton.IsChecked == true)
+        //    {
+
+        //        if (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].movie_title)
+        //        {
+        //            Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+        //            Debug.WriteLine("Correct Answer");
+        //            ans_correct = ans_correct + 1;
+        //            radioButton.IsChecked = false;
+        //            SelectQuestion();
+
+        //        }
+        //        else
+        //        {
+        //            Application.Current.MainPage.DisplayAlert("Whoops", "Wrong Agian Mr. Bond!", "OK");
+        //            Debug.WriteLine("Wrong Answer");
+        //            ans_wrong = ans_wrong + 1;
+        //        }
+        //    }
+        //}
+
+
+
         // Private void method that take a string corresponding to the class attribute that needs to be updated.
         // Not sure if it needs to be above or below Constructor
         void OnPropertyChanged(string variableName)
@@ -135,7 +173,7 @@ namespace BondMobileApp.ViewModels                                              
 
         public QuestionsViewModel(string qtype)
         {
-            Debug.WriteLine("\nQVM: Entering QuestionsViewModel.cs");
+            Debug.WriteLine("\nQVM: Entering QuestionsViewModel.cs " + qtype);
             CallEndpoint(qtype);
         }
 
@@ -147,7 +185,14 @@ namespace BondMobileApp.ViewModels                                              
             Options = await endpointObject.GetData(qtype);
             //How do you get the data from _options to Options?
             // Loop through the _options and add each item to the Options binding collection
-            
+
+            // Verify Options has the data needed
+            Debug.WriteLine("\nVerify Options content");
+            for (int i = 0; i < Options.Count; i++)
+            {
+                Debug.WriteLine(Options[i].sidekick);
+            }
+
             SelectQuestion();
 
         }
@@ -197,7 +242,7 @@ namespace BondMobileApp.ViewModels                                              
             }
             else
             {
-                Debug.WriteLine("QVM: Ask Question!" + nextQuestion);
+                Debug.WriteLine("QVM: Ask Question! " + nextQuestion);
                 // Get other options
                 GetOtherOptions(nextQuestion);
 
@@ -270,47 +315,21 @@ namespace BondMobileApp.ViewModels                                              
                 }
             }
 
-
-
-
-        }
-
-
-        public void RadioButton_CheckedChanged(System.Object sender, Xamarin.Forms.CheckedChangedEventArgs e)  // sender is of class System.Object and must be converted in the proper type
-        {
-            Debug.WriteLine("\nRadio Button Clicked");
-            Debug.WriteLine("sender: " + sender);
-            Debug.WriteLine("e: " + e);
-
-            var s = sender;
-            var radioEvent = e;
-
-            // converts sender to Radio Button type
-            var radioButton = (RadioButton)sender;
-            // Once in Radio Button type now you can see and use content
-            string contentString = radioButton.Content.ToString();
-            Debug.WriteLine("contentString: " + contentString);
-
-            if (radioButton.IsChecked == true)
+            // Verify that all answers are unique
+            Debug.WriteLine("\nVerify Display Options");
+            for (int i = 0; i < Display.Count; i++)
             {
-
-                if (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].movie_title)
-                {
-                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
-                    Debug.WriteLine("Correct Answer");
-                    ans_correct = ans_correct + 1;
-                    radioButton.IsChecked = false;
-                    SelectQuestion();
-
-                }
-                else
-                {
-                    Application.Current.MainPage.DisplayAlert("Whoops", "Wrong Agian Mr. Bond!", "OK");
-                    Debug.WriteLine("Wrong Answer");
-                    ans_wrong = ans_wrong + 1;
-                }
+                Debug.WriteLine(Display[i]);
+                Debug.WriteLine(Options[OtherOptions[Display[i]]].movie_title);
             }
+
+
+
+
         }
+
+
+
 
     }
 }
