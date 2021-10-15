@@ -3,6 +3,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="BondMobileApp.Pages.ResultsPage">
+
+
+
     <ContentPage.Content>
 
         <!--  Why can't I have 2 stacked layouts on top of one another?

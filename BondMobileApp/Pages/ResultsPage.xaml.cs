@@ -15,6 +15,7 @@ namespace BondMobileApp.Pages
         public ResultsPage(string name, string correct, string wrong)
         {
             InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "BondGirls");
 
             questionsX.Text = name;
             correctX.Text = correct;
@@ -24,7 +25,8 @@ namespace BondMobileApp.Pages
 
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
-            Application.Current.MainPage = new MainSelectonPage();
+            Application.Current.MainPage = new MainSelectonPage();              //Notice no Navigation Page so this just sets the root page
+            //Navigation.PopAsync(false);                                         //Pops page to the previous page.  False ensures no motion
         }
     }
 }

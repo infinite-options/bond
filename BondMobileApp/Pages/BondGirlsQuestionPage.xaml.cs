@@ -251,7 +251,7 @@ namespace BondMobileApp.Pages
 
         void Button_Clicked(System.Object sender, System.EventArgs e)
         {
-            Application.Current.MainPage = new NavigationPage(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()));
+            Navigation.PushAsync(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()) , false);
 
         }
     }

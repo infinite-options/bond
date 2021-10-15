@@ -143,7 +143,7 @@ namespace BondMobileApp.Pages
                 Debug.WriteLine("Option: " + Option);
 
                 // check if it is in the list or if it is equal to the question
-                if (OtherOptions.Contains(Option) == true)
+                if (OtherOptions.Contains(Option) == true || Options[Option].villain == Options[n].villain)
                 {
                     //Debug.WriteLine("Option already on List!");
                 }
