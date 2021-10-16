@@ -33,7 +33,7 @@
 
 
                 <StackLayout Grid.Row="2" Margin="0,0,0,-20" >
-                    <Frame BackgroundColor="#691010" VerticalOptions="StartAndExpand" HasShadow="False" IsVisible="True" CornerRadius="22" Padding="25,10,10,0">
+                    <Frame BackgroundColor="#691010" HasShadow="False" IsVisible="True" CornerRadius="22" Padding="25,10,10,200">
                         <StackLayout>
                             <Grid VerticalOptions="CenterAndExpand" RowSpacing="25">
 
@@ -59,7 +59,7 @@
 
                             <!--Create New Button-->
 
-                            <Button Text="Main Page" FontAttributes="Bold" Clicked="Button_Clicked"  TextColor="Black"  BackgroundColor="white" Margin="90,20" CornerRadius="20"></Button>
+                            <Button Text="Main Page" FontAttributes="Bold" Clicked="Button_Clicked"  TextColor="Black"  BackgroundColor="white" Margin="90,50,90,0" CornerRadius="20"></Button>
 
                         </StackLayout>
                     </Frame>
