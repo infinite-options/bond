@@ -21,33 +21,21 @@ namespace BondMobileApp.Pages
         public string Question = "";
         public int typeQuestion;
 
-        //public List<string> QuestionsAsked = new List<string>();
-        public List<int> QuestionsAsked = new List<int>();
-
-        // Potential Alternative Answers
-        public List<int> OtherOptions = new List<int>();
-
-        // Randomized Display List of all Answers
-        public List<int> Display = new List<int>();
-        
+        public List<VillainsClass> Options { get; set; }                        // List of Endpoint Data
+        public List<int> QuestionsAsked = new List<int>();                      // List of Questions Asked
+        public List<int> OtherOptions = new List<int>();                        // Potential Alternative Answers
+        public List<int> Display = new List<int>();                             // Randomized Display List of all Answers
 
 
-        // List of Endpoint Data
-        public List<VillainsClass> Options { get; set; }
-
-
-
-
-
-
+        // Program Strategy
         // 1. Call Endpoint
-        // 3. Get Question
-        //  3a.  Select Question Type
-        //  3b.  Add Question to Questions List
-        //  3c.  Select Other Options
-        //  3d.  Randomize Question
-        //  3e.  Render Question
-
+        // 2. Get Question
+        //  2a.  Select Question Type
+        //  2b.  Add Question to Questions List
+        //  2c.  Select Other Options
+        //  2d.  Randomize Question
+        //  2e.  Render Question
+        // 3. Get Response Answer
 
 
 
@@ -109,10 +97,10 @@ namespace BondMobileApp.Pages
             {
                 // Print which questions have been asked already
                 // Debug.WriteLine("Questions asked so far:");
-                for (int i = 0; i < QuestionsAsked.Count; i++)
-                {
-                    Debug.WriteLine(QuestionsAsked[i]);
-                }
+                //for (int i = 0; i < QuestionsAsked.Count; i++)
+                //{
+                //    Debug.WriteLine(QuestionsAsked[i]);
+                //}
 
                 // Generate Random number for next Question
                 Random n = new Random();
@@ -270,7 +258,7 @@ namespace BondMobileApp.Pages
             //Debug.WriteLine("In Check Answer");
             for (int i = 0; i < Options.Count; i++)
             {
-                Debug.WriteLine(i + ": " + Options[i]);
+                //Debug.WriteLine(i + ": " + Options[i]);
                 if (Options[i].movie_title == selection)
                 {
                     if (Options[i].villain == Options[QuestionsAsked[QuestionsAsked.Count - 1]].villain)

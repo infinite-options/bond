@@ -14,19 +14,21 @@
                 <!--<RowDefinition Height="156"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="170"></RowDefinition>-->
-                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="10*"></RowDefinition>
                 <RowDefinition Height="5*"></RowDefinition>
-                <RowDefinition Height="2.5*"></RowDefinition>
             </Grid.RowDefinitions>
 
                 <StackLayout Grid.Row="0" >
-                    <Frame BackgroundColor="Black" VerticalOptions="FillAndExpand" HasShadow="False">
+                    <Frame BackgroundColor="Black" VerticalOptions="FillAndExpand" HasShadow="False" CornerRadius="0">
                         <StackLayout VerticalOptions="End">
                             <Label Text="Villain's Lair" TextColor="White" FontSize ="40" FontFamily="Chrome" HorizontalTextAlignment="Center" Padding="30,10,30,10"/>
                             <Label Text="So you think you can escape Mr Bond" FontFamily="Chrome" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" />
                         </StackLayout>
                     </Frame>
                 </StackLayout>
+
+
                 <StackLayout Grid.Row="1">
                      <Label x:Name="DisplayQuestion" TextColor="Black" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="30" FontAttributes="Bold"></Label>
                     <StackLayout Margin="20">
@@ -35,11 +37,13 @@
                          <RadioButton x:Name="Option2" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
                          <RadioButton x:Name="Option3" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
                      </StackLayout>
-                    <!--Button-->
 
+                    <!--Button-->
                      <Button Text="Results Page" Clicked="Button_Clicked"  TextColor="White"  BackgroundColor="Blue" Margin="80,0"></Button>
 
                 </StackLayout>
+
+
                 <StackLayout Grid.Row="2" Margin="0,0,0,-20" >
                     <Frame BackgroundColor="#691010" VerticalOptions="FillAndExpand" HasShadow="False" IsVisible="True" CornerRadius="22" Padding="25,10,10,30">
                         <StackLayout>
@@ -64,88 +68,7 @@
                     </Frame>
                 </StackLayout>
 
-
-
-
-
         </Grid>
-
-        <!--<StackLayout>
-
-             <Label Text="Questions Page" BackgroundColor="BlanchedAlmond" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,10,30,10"/>
-             <Label Text="So you think you know the answers Mr Bond" HorizontalTextAlignment="Center" FontSize="Header" Padding="30,10,30,10"/>
-
-             <ScrollView>
-
-                 <StackLayout>
-
-                     Question
-                     <Rectangle  Background="red"></Rectangle>
-
-                     Complete concatination in the code behind
-                     <Label x:Name="DisplayQuestion" Margin="10,10,40,0" HorizontalOptions="Center" FontSize="Title"></Label>
-
-                     <Rectangle Background="red"></Rectangle>
-
-
-
-
-
-                     Answers
-
-                     <StackLayout Margin="20">
-                         <RadioButton x:Name="Option0" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton x:Name="Option1" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton x:Name="Option2" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton x:Name="Option3" CheckedChanged="RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                     </StackLayout>
-
-                     <StackLayout Margin="20">
-                         <RadioButton Content="{Binding Options[].movie_title}" CheckedChanged="QP_RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton Content="{Binding Display[1]}" CheckedChanged="QP_RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton Content="{Binding Display[2]}" CheckedChanged="QP_RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                         <RadioButton Content="{Binding Display[3]}" CheckedChanged="QP_RadioButton_CheckedChanged" IsChecked="False"></RadioButton>
-                     </StackLayout>
-
-
-
-
-
-                     Status
-                     <Grid>
-                         <Grid.ColumnDefinitions>
-                             <ColumnDefinition></ColumnDefinition>
-                             <ColumnDefinition></ColumnDefinition>
-                         </Grid.ColumnDefinitions>
-                         <Grid.RowDefinitions>
-                             <RowDefinition></RowDefinition>
-                             <RowDefinition></RowDefinition>
-                             <RowDefinition></RowDefinition>
-                         </Grid.RowDefinitions>
-                         <Label Text="Number of Questions asked: " Grid.Row="0" Grid.Column="0"></Label>
-                         <Label  x:Name="NumQuestions"  TextColor="Red" Grid.Row="0" Grid.Column="1"></Label>
-                         <Label Text="Total Number of Correct Answers" Grid.Row="1" Grid.Column="0"></Label>
-                         <Label  x:Name="NumCorrect" TextColor="Red" Grid.Row="1" Grid.Column="1"></Label>
-                         <Label Text="Total Number of Incorrect Answers" Grid.Row="2" Grid.Column="0"></Label>
-                         <Label  x:Name="NumWrong" TextColor="Red" Grid.Row="2" Grid.Column="1"></Label>
-                     </Grid>
-
-
-
-
-                     Button
-
-                     <Button Text="Results Page" Clicked="Button_Clicked" TextColor="White"  BackgroundColor="Blue" Margin="90,20"></Button>
-                     
-
-
-                 </StackLayout>
-
-             </ScrollView>
-
-
-
-        </StackLayout>-->
 
     </ContentPage.Content>
 </ContentPage>

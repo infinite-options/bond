@@ -8,18 +8,15 @@ namespace BondMobileApp.Pages
     public partial class ResultsPage : ContentPage
     {
 
-        string _name;
-        string _correct;
-        string _wrong;
 
-        public ResultsPage(string name, string correct, string wrong)
+        public ResultsPage(string questions, string correct, string wrong)
         {
             InitializeComponent();
             //NavigationPage.SetBackButtonTitle(this, "BondGirls");             //Trying to set back button title but this isn't working
 
-            questionsX.Text = name;
-            correctX.Text = correct;
-            wrongX.Text = wrong;
+            NumQuestions.Text = questions;
+            NumCorrect.Text = correct;
+            NumWrong.Text = wrong;
 
         }
 
