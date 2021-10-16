@@ -19,127 +19,77 @@ namespace BondMobileApp.Pages
     {
         // Global variables
 
-
-        public int index = 0;
         public int questions = 0;
         public int ans_correct = 0;
         public int ans_wrong = 0;
+        public string Question = "";
+        public int typeQuestion;
 
-        // Endpoint Step 2: Initialize a list of a specific public class defined below
-        public List<HenchmenClass> HenchmenList = new List<HenchmenClass>();
-
-        //public List<string> QuestionsAsked = new List<string>();
-        public List<int> QuestionsAsked = new List<int>();
-
-        // Potential Alternative Answers
-        public List<int> Options = new List<int>();
-
-        // Randomized Display List of all Answers
-        public List<int> Display = new List<int>();
+        public List<MovieClass> Options { get; set; }                        // List of Endpoint Data
+        public List<int> QuestionsAsked = new List<int>();                      // List of Questions Asked
+        public List<int> OtherOptions = new List<int>();                        // Potential Alternative Answers
+        public List<int> Display = new List<int>();                             // Randomized Display List of all Answers
 
 
+        // Program Strategy
+        // 1. Call Endpoint
+        // 2. Get Question
+        //  2a.  Add Question to Questions List
+        //  2b.  Select Other Options
+        //  2c.  Randomize Question
+        //  2d.  Select Question Type
+        //  2e.  Render Question
+        // 3. Get Response Answer
 
-
-        public ObservableCollection<HenchmenClass> HenchmenDetails = new ObservableCollection<HenchmenClass>();
-        public ObservableCollection<displaytext> bindingSource = new ObservableCollection<displaytext>();
-
-        // Private attributes of MovieQuestionPage class
-
-        int i = 0; // index 
-
-        //HenchmenViewModel model = new HenchmenViewModel(); // HenchmenViewModel object        // This line seems to call HenchmenViewModel.cs twice
 
 
         // Constructor
-        public MovieQuestionPage()
+        public MovieQuestionPage(string qtype)
         {
-            Debug.WriteLine("\nMQP: In Movie Questions Page");
+            Debug.WriteLine("\nEntering Question Page Code Behind " + qtype);
             InitializeComponent();
+            CallEndpoint(qtype);
 
-
-            Debug.WriteLine("\nMQP: Before Binding Context");
-            //BindingContext = model;                                     // Calls the HenchmenViewModel
-            //BindingContext = new HenchmenViewModel();               //Equivalent to previous line
-
-            Debug.WriteLine("\nMQP: Before Local Henchmen");
-            LocalHenchmen();
-        }
-
-
- 
-        
-
-
-        public class displaytext : INotifyPropertyChanged
-        {
-            public event PropertyChangedEventHandler PropertyChanged = delegate { };
-            public string Answer { get; set; }
-            public string updateAnswer
-            {
-                set
-                {
-                    Answer = value;
-                    PropertyChanged(this, new PropertyChangedEventArgs("Answer"));
-                }
-
-            }
         }
 
 
 
-        void setLabelData()
+
+        async void CallEndpoint(string qtype)
         {
-            var displayTextObject = new displaytext();
-            //displayTextObject.Answer = henchmenName.Text;
-            //bindingSource.Add(displayTextObject);
-            //bindingCollection.ItemsSource = bindingSource;
-        }
-
-
-
-        // Endpoint Step 3: Perform the Task of calling the Endpoint
-        // Gets the data and stores it in a global variable
-        async void LocalHenchmen()
-        {
-            Debug.WriteLine("\nMQP: Inside LocalHenchmen Before Endpoint Call");
+            Debug.WriteLine("MQP: CallEndpoint");
             var endpointObject = new Endpoints();
-            Debug.WriteLine("MQP After object definition");
-            //var localresult = await endpointobject.GetHenchmen();  //GetHenchmen returns the result but is not storing it
-            HenchmenList = await endpointObject.GetHenchmen();  //GetHenchmen returns the result and stores it
-            Debug.WriteLine("MQP: Finished LocalHenchmen");
-
-            // Puts in a single Henchmen into the binding collection
-            //HenchmenDetails.Add(HenchmenList[0]);
-            //bindingCollection.ItemsSource = HenchmenDetails;
-
-            // Loop through the HenchmenList and add each item to the bind collection
-            foreach (HenchmenClass item in HenchmenList)
-            {
-                HenchmenDetails.Add(item);
-            }
-            bindingCollection.ItemsSource = HenchmenDetails;
+            Options = await endpointObject.GetMovieData(qtype);
 
 
+            // Verify Options has the data needed
+            //Debug.WriteLine("\nVerify Options content");
+            //for (int i = 0; i < Options.Count; i++)
+            //{
+            //    Debug.WriteLine(Options[i].villain);
+            //}
 
-            // Call getQuestion to get the Question, Correct Answer and Choices from the data in HenchmenList
-            // Call getQuestion here to ensure it runs after data is in the HenchmenList
-            getQuestion();
+
+            // 2. Get Question
+            GetQuestion();
+
+        }
+
+        private void GetScores()
+        {
+            NumQuestions.Text = questions.ToString();
+            NumCorrect.Text = ans_correct.ToString();
+            NumWrong.Text = ans_wrong.ToString();
         }
 
 
-
-        // Need a Function to get the Question, Correct Answer and Choices from the data in HenchmenList
-        // Need a Function that gets a random number of an item not previously asked + 3 other answers and displays them
-
-        void getQuestion()
+        private void GetQuestion()
         {
-            Debug.WriteLine("\nInside getQuestion");
-            //Debug.WriteLine(QuestionsAsked.Count);
-            //Debug.WriteLine(HenchmenList.Count);
-
-            if (QuestionsAsked.Count == HenchmenList.Count)
+            // Check if all Questions have been asked
+            Debug.WriteLine("\nMQP: GetQuestion");
+            if (QuestionsAsked.Count == Options.Count || QuestionsAsked.Count >= 10)
             {
-                Debug.WriteLine("That's All Folks!");
+                Debug.WriteLine("MQP: QuestionPage: That's All Folks!");
                 // To start same set of questions again:
                 //Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
                 // To Return to Main Page:
@@ -153,168 +103,205 @@ namespace BondMobileApp.Pages
             {
                 // Print which questions have been asked already
                 // Debug.WriteLine("Questions asked so far:");
-                for (int i = 0; i < QuestionsAsked.Count; i++)
-                {
-                    Debug.WriteLine(QuestionsAsked[i]);
-                }
+                //for (int i = 0; i < QuestionsAsked.Count; i++)
+                //{
+                //    Debug.WriteLine(QuestionsAsked[i]);
+                //}
 
+                //  2a.  Add Question to Questions List
                 // Generate Random number for next Question
                 Random n = new Random();
-                int nextQuestion = n.Next(HenchmenList.Count);
-                Debug.WriteLine("Next Question Index: " + nextQuestion);
+                int nextQuestion = n.Next(Options.Count);
+                Debug.WriteLine("MQP: Next Question Index: " + nextQuestion);
 
                 // Check is random number has already been used
                 if (QuestionsAsked.Contains(nextQuestion) == true)
                 {
-                    Debug.WriteLine("Question already asked!");
-                    getQuestion();
+                    Debug.WriteLine("MQP: Question already asked!");
+                    GetQuestion();
                 }
                 else
                 {
-                    Debug.WriteLine("Ask Question!");
-                    // Calls getHenchmanName with a random number in HenchmenList
-                    getHenchmanName(nextQuestion);
+                    Debug.WriteLine("MQP: Ask Question! " + nextQuestion);
                     QuestionsAsked.Add(nextQuestion);
-                    Debug.WriteLine("After: " + QuestionsAsked.Count);
-                    setLabelData();
+
+                    //  2b.  Select Other Options
+                    GetOtherOptions(nextQuestion);                              // Returns DisplayOptions with list or random integers
+
+                    questions = questions + 1;
+                    GetScores();
+
+                    //  2d.  Select Question Type
+                    //  2e.  Render Question
+                    Random q = new Random();
+                    typeQuestion = q.Next(6);
+
+                    switch (typeQuestion)
+                    {
+                        case 1:                                                 // Actor
+                            Question = "Who played James Bond in the moview " + Options[nextQuestion].movie_title + "?";
+                            Option0.Content = Options[Display[0]].bond_actor;
+                            Option1.Content = Options[Display[1]].bond_actor;
+                            Option2.Content = Options[Display[2]].bond_actor;
+                            Option3.Content = Options[Display[3]].bond_actor;
+                            break;
+                        case 2:                                                 // Year
+                            Question = "What year was " + Options[nextQuestion].movie_title + " released?";
+                            Option0.Content = Options[Display[0]].movie_year;
+                            Option1.Content = Options[Display[1]].movie_year;
+                            Option2.Content = Options[Display[2]].movie_year;
+                            Option3.Content = Options[Display[3]].movie_year;
+                            break;
+                        case 3:                                                 // Director
+                            Question = "Who directed " + Options[nextQuestion].movie_title + "?";
+                            Option0.Content = Options[Display[0]].director;
+                            Option1.Content = Options[Display[1]].director;
+                            Option2.Content = Options[Display[2]].director;
+                            Option3.Content = Options[Display[3]].director;
+                            break;
+                        case 4:                                                 // M
+                            Question = "Who played 'M' in " + Options[nextQuestion].movie_title + "?";
+                            Option0.Content = Options[Display[0]].M;
+                            Option1.Content = Options[Display[1]].M;
+                            Option2.Content = Options[Display[2]].M;
+                            Option3.Content = Options[Display[3]].M;
+                            break;
+                        case 5:                                                  // Q
+                            Question = "Who played 'M' in " + Options[nextQuestion].movie_title + "?";
+                            Option0.Content = Options[Display[0]].Q;
+                            Option1.Content = Options[Display[1]].Q;
+                            Option2.Content = Options[Display[2]].Q;
+                            Option3.Content = Options[Display[3]].Q;
+                            break;
+                        default:                                                 // MoneyPenny
+                            Question = "Who played 'M' in "  + Options[nextQuestion].movie_title + "?";
+                            Option0.Content = Options[Display[0]].Moneypenny;
+                            Option1.Content = Options[Display[1]].Moneypenny;
+                            Option2.Content = Options[Display[2]].Moneypenny;
+                            Option3.Content = Options[Display[3]].Moneypenny;
+                            break;
+                    }
+
+                    DisplayQuestion.Text = Question;
+
+                    //QuestionsAsked.Add(nextQuestion);                           // Not sure why this is so far down in the logic.  Moving Up.  Delete if tests pass
+                    Debug.WriteLine("MQP: After: " + QuestionsAsked.Count);
+                    //setLabelData();
                 }
+
             }
         }
 
-
-
-        void getHenchmanName(int n)
+        //  2b.  Select Other Options
+        private void GetOtherOptions(int n)
         {
-            Debug.WriteLine("Inside getHenchmenName " + n);
-            Debug.WriteLine("Total Number of Henchmen " + HenchmenList.Count);
-            // Check if data was returned
-            if (HenchmenList.Count != 0 && n < HenchmenList.Count)
+            Debug.WriteLine("MQP: Get Other Options");
+            OtherOptions.Clear();
+            OtherOptions.Add(n);
+
+            while (OtherOptions.Count < 4)
             {
-                questions = questions + 1;
-                dynamicHenchmenName.Text = "Which Film featured " + HenchmenList[n].sidekick + "?";
-                // Put data in appropriate variables
-                //henchmenName.Text = HenchmenList[n].sidekick;
-                //henchmenMovie.Text = HenchmenList[n].movie_title;
-                //Answer.Content = HenchmenList[n].movie_title;
-                questionsX.Text = questions.ToString();
-                ans_correctX.Text = ans_correct.ToString();
-                ans_wrongX.Text = ans_wrong.ToString();
+                // generate a random number
+                Random m = new Random();
+                int Option = m.Next(Options.Count);
+                Debug.WriteLine("Option: " + Option);
 
-                //Debug.WriteLine("From Get_Henchmen: {0}, {1}", henchmenName.Text, henchmenMovie.Text);
-                //Debug.WriteLine("From Get_Henchmen: " + henchmenName.Text + ", " + henchmenMovie.Text);
-                Debug.WriteLine("From Get_Henchmen: " + HenchmenList[n].sidekick + ", " + HenchmenList[n].movie_title);
-
-
-
-
-                // define Options as a List -- done as a global variable although I'm not sure it has to be global
-                // Put answer in list of questions and stop after 4 total options are avialable
-                List<int> Options = new List<int>() { n };
-
-                while (Options.Count < 4)
+                // check if it is in the list or if it is equal to the question
+                if (OtherOptions.Contains(Option) == true ||                            //Check if Options is already on the Options List
+                    Options[Option].bond_girl == Options[n].bond_girl ||                //Check if Option villain = Question villain
+                    Options[Option].bond_girl_actress == Options[n].bond_girl_actress ||    //Check if Option actor = Question actor
+                    Options[Option].movie_title == Options[n].movie_title ||            //Check if Option movie = Question movie
+                    CheckOtherOptions(Option) == true)                                  //Check if Option values match any previous Option values
                 {
-                    // generate a random number
-                    Random m = new Random();
-                    int Option = m.Next(HenchmenList.Count);
-                    Debug.WriteLine("Option: " + Option);
-
-                    // check if it is in the list or if it is equal to the question
-                    if (Options.Contains(Option) == true)
-                    {
-                        //Debug.WriteLine("Option already on List!");
-                    }
-                    // if unique, add it to the list
-                    else
-                    {
-                        //Debug.WriteLine("Add Option!");
-                        // Calls getHenchmanName with a random number in HenchmenList
-                        Options.Add(Option);
-                        //Debug.WriteLine("Option Count: " + Options.Count);
-                        setLabelData();
-                    }
+                    //Debug.WriteLine("Option already on List!");
                 }
-
-                // Verify that all answers are unique
-                Debug.WriteLine("\nVerify Option are unique");
-                for (int i = 0; i < Options.Count; i++)
+                // if unique, add it to the list
+                else
                 {
-                    Debug.WriteLine(Options[i]);
+                    //Debug.WriteLine("Add Option!");
+                    // Calls getHenchmanName with a random number in HenchmenList
+                    OtherOptions.Add(Option);
+                    //Debug.WriteLine("Option Count: " + Options.Count);
+                    //setLabelData();
                 }
-
-
-                //Option1.Content = HenchmenList[Options[1]].movie_title;
-                //Option2.Content = HenchmenList[Options[2]].movie_title;
-                //Option3.Content = HenchmenList[Options[3]].movie_title;
-                //Answer2.Content = HenchmenList[Options[0]].movie_title;
-
-
-
-                // Put answer in randomized list for display
-                // Define new Display List
-                List<int> Display = new List<int>();
-
-                while (Display.Count < 4)
-                {
-                    // Randomize answers for display
-                    Random d = new Random();
-                    int display = d.Next(Options.Count);
-                    //Debug.WriteLine("Display Order: " + display);
-
-                    // check if it is in the list or if it is equal to the question
-                    if (Display.Contains(display) == true)
-                    {
-                        //Debug.WriteLine("Option already on List!");
-                    }
-                    // if unique, add it to the list
-                    else
-                    {
-                        //Debug.WriteLine("Add Option!");
-                        // Calls getHenchmanName with a random number in HenchmenList
-                        Display.Add(display);
-                        //Debug.WriteLine("Display Count: " + Display.Count);
-                        setLabelData();
-                    }
-                }
-
-                // Verify that all answers are unique
-                Debug.WriteLine("\nVerify Display Option are unique");
-                for (int i = 0; i < Display.Count; i++)
-                {
-                    Debug.WriteLine(Display[i]);
-                }
-
-
-
-                Option0.Content = HenchmenList[Options[Display[0]]].movie_title;
-                Option1.Content = HenchmenList[Options[Display[1]]].movie_title;
-                Option2.Content = HenchmenList[Options[Display[2]]].movie_title;
-                Option3.Content = HenchmenList[Options[Display[3]]].movie_title;
-
-
-
-
             }
-            Debug.WriteLine("Finished getHenchmenName");
+
+
+
+
+
+            //// For Debug Purposes: Verify that all answers are unique
+            //Debug.WriteLine("\nVerify Option are unique");
+            //for (int i = 0; i < OtherOptions.Count; i++)
+            //{
+            //    Debug.WriteLine(OtherOptions[i]);
+            //}
+
+
+
+            // 2c. Randomize the Order for display - New Approach
+            Display.Clear();
+            while (Display.Count < 4)
+            {
+                // Randomize answers for display
+                //Debug.WriteLine("OtherOptions Count: " + OtherOptions.Count);
+
+                Random d = new Random();
+                int display = d.Next(OtherOptions.Count);
+                Display.Add(OtherOptions[display]);
+                //Debug.WriteLine("Display Count: " + Display.Count);
+                OtherOptions.RemoveAt(display);
+            }
+
+
+
+            //// For Debug Purposes: Verify that all answers are unique
+            //Debug.WriteLine("\nVerify Display Options");
+            //for (int i = 0; i < Display.Count; i++)
+            //{
+            //    Debug.WriteLine(Display[i]);
+            //    Debug.WriteLine(Options[Display[i]].movie_title);
+            //}
 
         }
 
 
-
-
-
-
-
-
-
-
-        void Button_Clicked(System.Object sender, System.EventArgs e)
+        private bool CheckOtherOptions(int selection)
         {
-            //Application.Current.MainPage = new MainPage();
-            Application.Current.MainPage = new NavigationPage(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()));
+            //Debug.WriteLine("In Check Other Options " + selection + " OtherOptions Count: " + OtherOptions.Count);
+            for (int i = 0; i < OtherOptions.Count; i++)
+            {
+                //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
+                //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
+                if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl || Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
-        void RadioButton_CheckedChanged(System.Object sender, Xamarin.Forms.CheckedChangedEventArgs e)  // sender is of class System.Object and must be converted in the proper type
+        private bool CheckAnswer(string selection)
+        {
+            //Debug.WriteLine("In Check Answer");
+            for (int i = 0; i < Options.Count; i++)
+            {
+                //Debug.WriteLine(i + ": " + Options[i]);
+                if (Options[i].movie_title == selection)
+                {
+                    if (Options[i].bond_girl == Options[QuestionsAsked[QuestionsAsked.Count - 1]].bond_girl)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+
+        public void RadioButton_CheckedChanged(System.Object sender, Xamarin.Forms.CheckedChangedEventArgs e)  // sender is of class System.Object and must be converted in the proper type
         {
             Debug.WriteLine("\nRadio Button Clicked");
             Debug.WriteLine("sender: " + sender);
@@ -331,37 +318,84 @@ namespace BondMobileApp.Pages
 
             if (radioButton.IsChecked == true)
             {
-
-                if (contentString == HenchmenList[QuestionsAsked[QuestionsAsked.Count - 1]].movie_title)
+                Debug.WriteLine("typeQuestion: " + typeQuestion);
+                //Actor
+                if (typeQuestion == 1 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].bond_actor)
                 {
-                    DisplayAlert("Correct", "You're Good!", "OK");
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
                     Debug.WriteLine("Correct Answer");
                     ans_correct = ans_correct + 1;
                     radioButton.IsChecked = false;
-                    getQuestion();
-
+                    GetQuestion();
                 }
+
+                //Year
+                else if (typeQuestion == 2 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].movie_year)
+                {
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+                    Debug.WriteLine("Correct Answer");
+                    ans_correct = ans_correct + 1;
+                    radioButton.IsChecked = false;
+                    GetQuestion();
+                }
+
+                //Director
+                else if (typeQuestion == 0 && (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].director || CheckAnswer(contentString) == true))
+                {
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+                    Debug.WriteLine("Correct Answer");
+                    ans_correct = ans_correct + 1;
+                    radioButton.IsChecked = false;
+                    GetQuestion();
+                }
+
+                //M
+                if (typeQuestion == 1 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].M)
+                {
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+                    Debug.WriteLine("Correct Answer");
+                    ans_correct = ans_correct + 1;
+                    radioButton.IsChecked = false;
+                    GetQuestion();
+                }
+
+                //Q
+                else if (typeQuestion == 2 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].Q)
+                {
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+                    Debug.WriteLine("Correct Answer");
+                    ans_correct = ans_correct + 1;
+                    radioButton.IsChecked = false;
+                    GetQuestion();
+                }
+
+                //MoneyPenny
+                else if (typeQuestion == 0 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].Moneypenny)
+                {
+                    Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
+                    Debug.WriteLine("Correct Answer");
+                    ans_correct = ans_correct + 1;
+                    radioButton.IsChecked = false;
+                    GetQuestion();
+                }
+
                 else
                 {
-                    DisplayAlert("Whoops", "Wrong Agian Mr. Bond!", "OK");
+                    Application.Current.MainPage.DisplayAlert("Whoops", "Wrong Agian Mr. Bond!", "OK");
                     Debug.WriteLine("Wrong Answer");
                     ans_wrong = ans_wrong + 1;
                 }
+
+                //NumQuestions.Text = questions.ToString();
+                //NumCorrect.Text = ans_correct.ToString();
+                //NumWrong.Text = ans_wrong.ToString();
             }
         }
 
-        // Could be useful to print out the data in a List
-        //void IterateOverHenchmenListUsingViewMode(System.Object sender, System.EventArgs e)
-        //{
-        //    if (i < model.localHechmenList.Count)
-        //    {
-        //        model.IterateOverHenchmenList(i);
-        //        i++;
-        //    }
-        //    else
-        //    {
-        //        i = 0;
-        //    }
-        //}
+        void Button_Clicked(System.Object sender, System.EventArgs e)
+        {
+            Application.Current.MainPage = new NavigationPage(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()));
+
+        }
     }
 }
