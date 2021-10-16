@@ -71,11 +71,11 @@ namespace BondMobileApp.Pages
 
 
             // Verify Options has the data needed
-            Debug.WriteLine("\nVerify Options content");
-            for (int i = 0; i < Options.Count; i++)
-            {
-                Debug.WriteLine(Options[i].villain);
-            }
+            //Debug.WriteLine("\nVerify Options content");
+            //for (int i = 0; i < Options.Count; i++)
+            //{
+            //    Debug.WriteLine(Options[i].villain);
+            //}
 
             GetQuestion();
 
@@ -88,52 +88,11 @@ namespace BondMobileApp.Pages
             NumWrong.Text = ans_wrong.ToString();
         }
 
-        //private void SelectQuestion()
-        //{
-        //    Debug.WriteLine("VQP: SelectQuestion");
-        //    if (QuestionsAsked.Count == Options.Count || QuestionsAsked.Count >= 10)
-        //    {
-        //        Debug.WriteLine("VQP: QuestionPage: That's All Folks!");
-        //        // To start same set of questions again:
-        //        //Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
-        //        // To Return to Main Page:
-        //        //Application.Current.MainPage = new MainPage();
-        //        // To got to Results Page:
-        //        //Application.Current.MainPage = new ResultsPage();
-        //        Application.Current.MainPage = new NavigationPage(new ResultsPage(questions.ToString(), ans_correct.ToString(), ans_wrong.ToString()));
-        //    }
-
-        //    else
-        //    {
-        //        Random q = new Random();
-        //        int typeQuestion = q.Next(3);
-        //        switch (typeQuestion)
-        //        {
-        //            case 1:
-        //                typeAnswer = "villain";
-        //                QuestionPrefix = "What role does ";
-        //                QuestionBody = "play in the movie ";
-        //                break;
-        //            case 2:
-        //                typeAnswer = "villain_actor";
-        //                QuestionPrefix = "Who plays ";
-        //                QuestionBody = "in the movie ";
-        //                break;
-        //            default:
-        //                typeAnswer = "movie_title";
-        //                QuestionPrefix = "Which Film featured ";
-        //                QuestionBody = "";
-        //                break;
-        //        }
-        //        GetQuestion();
-        //    }
-
-        //}
-
+        
         private void GetQuestion()
         {
             // Check if all Questions have been asked
-            Debug.WriteLine("VQP: GetQuestion");
+            Debug.WriteLine("\nVQP: GetQuestion");
             if (QuestionsAsked.Count == Options.Count || QuestionsAsked.Count >= 10)
             {
                 Debug.WriteLine("VQP: QuestionPage: That's All Folks!");
@@ -183,21 +142,21 @@ namespace BondMobileApp.Pages
 
                     switch (typeQuestion)
                     {
-                        case 1:
+                        case 1:                                                 // Actor
                             Question = "Who played " + Options[nextQuestion].villain + " in the movie " + Options[nextQuestion].movie_title + "?";
                             Option0.Content = Options[Display[0]].villain_actor;
                             Option1.Content = Options[Display[1]].villain_actor;
                             Option2.Content = Options[Display[2]].villain_actor;
                             Option3.Content = Options[Display[3]].villain_actor;
                             break;
-                        case 2:
+                        case 2:                                                 // Role
                             Question = "What role did " + Options[nextQuestion].villain_actor + " play in the movie " + Options[nextQuestion].movie_title + "?";
                             Option0.Content = Options[Display[0]].villain;
                             Option1.Content = Options[Display[1]].villain;
                             Option2.Content = Options[Display[2]].villain;
                             Option3.Content = Options[Display[3]].villain;
                             break;
-                        default:
+                        default:                                                 // Movie
                             Question = "Which Film featured " + Options[nextQuestion].villain + "?";
                             Option0.Content = Options[Display[0]].movie_title;
                             Option1.Content = Options[Display[1]].movie_title;
@@ -231,10 +190,11 @@ namespace BondMobileApp.Pages
                     Debug.WriteLine("Option: " + Option);
 
                     // check if it is in the list or if it is equal to the question
-                    if (OtherOptions.Contains(Option) == true ||
-                        Options[Option].villain == Options[n].villain ||
-                        Options[Option].villain_actor == Options[n].villain_actor ||
-                        Options[Option].movie_title == Options[n].movie_title)
+                    if (OtherOptions.Contains(Option) == true ||                        //Check if Options is already on the Options List
+                        Options[Option].villain == Options[n].villain ||                //Check if Option villain = Question villain
+                        Options[Option].villain_actor == Options[n].villain_actor ||    //Check if Option actor = Question actor
+                        Options[Option].movie_title == Options[n].movie_title ||        //Check if Option movie = Question movie
+                        CheckOtherOptions(Option) == true)                              //Check if Option values match any previous Option values
                     {
                         //Debug.WriteLine("Option already on List!");
                     }
@@ -267,12 +227,12 @@ namespace BondMobileApp.Pages
                 while (Display.Count < 4)
                 {
                     // Randomize answers for display
-                    Debug.WriteLine("OtherOptions Count: " + OtherOptions.Count);
+                    //Debug.WriteLine("OtherOptions Count: " + OtherOptions.Count);
 
                     Random d = new Random();
                     int display = d.Next(OtherOptions.Count);
                     Display.Add(OtherOptions[display]);
-                    Debug.WriteLine("Display Count: " + Display.Count);
+                    //Debug.WriteLine("Display Count: " + Display.Count);
                     OtherOptions.RemoveAt(display);
                 }
 
@@ -286,18 +246,41 @@ namespace BondMobileApp.Pages
                 //    Debug.WriteLine(Options[Display[i]].movie_title);
                 //}
 
-
-
-                //// Render Questions to Front End
-                //Option0.Content = Options[Display[0]].movie_title;
-                //Option1.Content = Options[Display[1]].movie_title;
-                //Option2.Content = Options[Display[2]].movie_title;
-                //Option3.Content = Options[Display[3]].movie_title;
-
-
             }
 
 
+        private bool CheckOtherOptions(int selection)
+        {
+            //Debug.WriteLine("In Check Other Options " + selection + " OtherOptions Count: " + OtherOptions.Count);
+            for (int i = 0; i < OtherOptions.Count; i++)
+            {
+                //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
+                //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
+                if (Options[selection].villain == Options[OtherOptions[i]].villain || Options[selection].villain_actor == Options[OtherOptions[i]].villain_actor || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        private bool CheckAnswer(string selection)
+        {
+            //Debug.WriteLine("In Check Answer");
+            for (int i = 0; i < Options.Count; i++)
+            {
+                Debug.WriteLine(i + ": " + Options[i]);
+                if (Options[i].movie_title == selection)
+                {
+                    if (Options[i].villain == Options[QuestionsAsked[QuestionsAsked.Count - 1]].villain)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
 
 
@@ -319,6 +302,7 @@ namespace BondMobileApp.Pages
             if (radioButton.IsChecked == true)
             {
                 Debug.WriteLine("typeQuestion: " + typeQuestion);
+                //Actor
                 if (typeQuestion == 1 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].villain_actor)
                 {
                     Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
@@ -326,9 +310,9 @@ namespace BondMobileApp.Pages
                     ans_correct = ans_correct + 1;
                     radioButton.IsChecked = false;
                     GetQuestion();
-
-
                 }
+
+                //Role
                 else if (typeQuestion == 2 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].villain)
                 {
                     Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
@@ -336,17 +320,18 @@ namespace BondMobileApp.Pages
                     ans_correct = ans_correct + 1;
                     radioButton.IsChecked = false;
                     GetQuestion();
-
                 }
-                else if (typeQuestion == 0 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].movie_title)
+
+                //Movie
+                else if (typeQuestion == 0 && (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].movie_title || CheckAnswer(contentString) == true))
                 {
                     Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
                     Debug.WriteLine("Correct Answer");
                     ans_correct = ans_correct + 1;
                     radioButton.IsChecked = false;
                     GetQuestion();
-
                 }
+
                 else
                 {
                     Application.Current.MainPage.DisplayAlert("Whoops", "Wrong Agian Mr. Bond!", "OK");

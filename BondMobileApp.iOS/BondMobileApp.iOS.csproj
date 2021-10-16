@@ -143,10 +143,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\bond_image.jpeg" />
     <BundleResource Include="Resources\SongsLarge.png" />
-    <BundleResource Include="Resources\VillainsLarge.png" />
     <BundleResource Include="Resources\BondGirlsLarge.png" />
     <BundleResource Include="Resources\MoviesLarge.png" />
     <BundleResource Include="Resources\LinesLarge.png" />
+    <BundleResource Include="Resources\VillainsLarge.png" />
+    <BundleResource Include="Resources\HenchmenLarge.png" />
+    <BundleResource Include="Resources\PlotsLarge.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />

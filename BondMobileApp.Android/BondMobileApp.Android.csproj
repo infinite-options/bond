@@ -97,11 +97,19 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\BondGirlsLarge.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\VillainsLarge.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\BondGirlsLarge.png">
+    <AndroidResource Include="Resources\drawable\HenchmenLarge.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\PlotsLarge.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
