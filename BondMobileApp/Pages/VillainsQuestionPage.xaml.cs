@@ -30,10 +30,10 @@ namespace BondMobileApp.Pages
         // Program Strategy
         // 1. Call Endpoint
         // 2. Get Question
-        //  2a.  Select Question Type
-        //  2b.  Add Question to Questions List
-        //  2c.  Select Other Options
-        //  2d.  Randomize Question
+        //  2a.  Add Question to Questions List
+        //  2b.  Select Other Options
+        //  2c.  Randomize Question
+        //  2d.  Select Question Type
         //  2e.  Render Question
         // 3. Get Response Answer
 
@@ -65,6 +65,8 @@ namespace BondMobileApp.Pages
             //    Debug.WriteLine(Options[i].villain);
             //}
 
+
+            // 2. Get Question
             GetQuestion();
 
         }
@@ -102,6 +104,7 @@ namespace BondMobileApp.Pages
                 //    Debug.WriteLine(QuestionsAsked[i]);
                 //}
 
+                //  2a.  Add Question to Questions List
                 // Generate Random number for next Question
                 Random n = new Random();
                 int nextQuestion = n.Next(Options.Count);
@@ -116,15 +119,16 @@ namespace BondMobileApp.Pages
                 else
                 {
                     Debug.WriteLine("VQP: Ask Question! " + nextQuestion);
-                    // Get other options
+                    QuestionsAsked.Add(nextQuestion);
+
+                    //  2b.  Select Other Options
                     GetOtherOptions(nextQuestion);                              // Returns DisplayOptions with list or random integers
 
                     questions = questions + 1;
                     GetScores();
 
-                    //Generate Qquestions
-                    //Question = "Which Film featured " + Options[nextQuestion].villain + "?";
-
+                    //  2d.  Select Question Type
+                    //  2e.  Render Question
                     Random q = new Random();
                     typeQuestion = q.Next(3);
 
@@ -155,7 +159,7 @@ namespace BondMobileApp.Pages
 
                     DisplayQuestion.Text = Question;
 
-                    QuestionsAsked.Add(nextQuestion);
+                    //QuestionsAsked.Add(nextQuestion);                           // Not sure why this is so far down in the logic.  Moving Up.  Delete if tests pass
                     Debug.WriteLine("VQP: After: " + QuestionsAsked.Count);
                     //setLabelData();
                 }
@@ -163,7 +167,7 @@ namespace BondMobileApp.Pages
             }
         }
 
-            //  3b.  Select Other Options
+            //  2b.  Select Other Options
             private void GetOtherOptions(int n)
             {
                 Debug.WriteLine("VQP: Get Other Options");
@@ -210,7 +214,7 @@ namespace BondMobileApp.Pages
 
 
 
-                // Randomize the Order for display - New Approach
+                // 2c. Randomize the Order for display - New Approach
                 Display.Clear();
                 while (Display.Count < 4)
                 {
