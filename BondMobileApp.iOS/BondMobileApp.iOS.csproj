@@ -142,5 +142,16 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\bond_image.jpeg" />
+    <BundleResource Include="Resources\SongsLarge.png" />
+    <BundleResource Include="Resources\VillainsLarge.png" />
+    <BundleResource Include="Resources\BondGirlsLarge.png" />
+    <BundleResource Include="Resources\MoviesLarge.png" />
+    <BundleResource Include="Resources\LinesLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Chrome.ttf" />
   </ItemGroup>
 </Project>

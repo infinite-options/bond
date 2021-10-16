@@ -4,5 +4,13 @@
              x:Class="BondMobileApp.App">
     <Application.Resources>
 
+
+        <ResourceDictionary>
+            <Style x:Key="FontLabelStyle" TargetType="Label">
+              <Setter Property="FontFamily" Value="Chrome"/>
+            </Style>
+        </ResourceDictionary>
+
+
     </Application.Resources>
 </Application>

@@ -23,11 +23,19 @@
     <None Remove="EndpointCalls\" />
     <None Remove="ViewModels\" />
     <None Remove="EndpointDataClasses\" />
+    <None Remove="Fonts\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Fonts\Chrome.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="EndpointCalls\" />
     <Folder Include="ViewModels\" />
     <Folder Include="EndpointDataClasses\" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Chrome.ttf" />
   </ItemGroup>
 </Project>

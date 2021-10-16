@@ -37,6 +37,15 @@ namespace BondMobileApp.Pages
 
 
 
+        // 1. Call Endpoint
+        // 2. Select Question
+        // 3. Get Question
+        //  3a.  Add Question to Questions List
+        //  3b.  Select Other Options
+        //  3c.  Randomize Question
+        //  3d.  Render Question
+
+
 
 
         // Constructor
@@ -67,6 +76,13 @@ namespace BondMobileApp.Pages
 
             SelectQuestion();
 
+        }
+
+        private void GetScores()
+        {
+            NumQuestions.Text = questions.ToString();
+            NumCorrect.Text = ans_correct.ToString();
+            NumWrong.Text = ans_wrong.ToString();
         }
 
         private void SelectQuestion()
@@ -119,6 +135,7 @@ namespace BondMobileApp.Pages
                 GetOtherOptions(nextQuestion);
 
                 questions = questions + 1;
+                GetScores();
                 Question = "Which Film featured " + Options[nextQuestion].villain + "?";
                 DisplayQuestion.Text = Question;
 
@@ -129,6 +146,7 @@ namespace BondMobileApp.Pages
 
         }
 
+        //  3b.  Select Other Options
         private void GetOtherOptions(int n)
         {
             Debug.WriteLine("VQP: Get Other Options");
@@ -158,36 +176,12 @@ namespace BondMobileApp.Pages
                 }
             }
 
-            // Verify that all answers are unique
-            Debug.WriteLine("\nVerify Option are unique");
-            for (int i = 0; i < OtherOptions.Count; i++)
-            {
-                Debug.WriteLine(OtherOptions[i]);
-            }
 
-            // Randomize the Order for display
-            //Display.Clear();
-            //while (Display.Count < 4)
+            //// For Debug Purposes: Verify that all answers are unique
+            //Debug.WriteLine("\nVerify Option are unique");
+            //for (int i = 0; i < OtherOptions.Count; i++)
             //{
-            //    // Randomize answers for display
-            //    Random d = new Random();
-            //    int display = d.Next(OtherOptions.Count);
-            //    //Debug.WriteLine("Display Order: " + display);
-
-            //    // check if it is in the list or if it is equal to the question
-            //    if (Display.Contains(display) == true)
-            //    {
-            //        //Debug.WriteLine("Option already on List!");
-            //    }
-            //    // if unique, add it to the list
-            //    else
-            //    {
-            //        //Debug.WriteLine("Add Option!");
-            //        // Calls getHenchmanName with a random number in HenchmenList
-            //        Display.Add(display);
-            //        //Debug.WriteLine("Display Count: " + Display.Count);
-            //        //setLabelData();
-            //    }
+            //    Debug.WriteLine(OtherOptions[i]);
             //}
 
 
@@ -208,21 +202,17 @@ namespace BondMobileApp.Pages
 
 
 
+            //// For Debug Purposes: Verify that all answers are unique
+            //Debug.WriteLine("\nVerify Display Options");
+            //for (int i = 0; i < Display.Count; i++)
+            //{
+            //    Debug.WriteLine(Display[i]);
+            //    Debug.WriteLine(Options[Display[i]].movie_title);
+            //}
 
 
 
-
-
-
-            // Verify that all answers are unique
-            Debug.WriteLine("\nVerify Display Options");
-            for (int i = 0; i < Display.Count; i++)
-            {
-                Debug.WriteLine(Display[i]);
-                Debug.WriteLine(Options[Display[i]].movie_title);
-            }
-
-
+            // Render Questions to Front End
             Option0.Content = Options[Display[0]].movie_title;
             Option1.Content = Options[Display[1]].movie_title;
             Option2.Content = Options[Display[2]].movie_title;
@@ -230,6 +220,9 @@ namespace BondMobileApp.Pages
 
 
         }
+
+
+
 
 
         public void RadioButton_CheckedChanged(System.Object sender, Xamarin.Forms.CheckedChangedEventArgs e)  // sender is of class System.Object and must be converted in the proper type
@@ -266,9 +259,9 @@ namespace BondMobileApp.Pages
                     ans_wrong = ans_wrong + 1;
                 }
 
-                NumQuestions.Text = questions.ToString();
-                NumCorrect.Text = ans_correct.ToString();
-                NumWrong.Text = ans_wrong.ToString();
+                //NumQuestions.Text = questions.ToString();
+                //NumCorrect.Text = ans_correct.ToString();
+                //NumWrong.Text = ans_wrong.ToString();
             }
         }
 
