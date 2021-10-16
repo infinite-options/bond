@@ -206,24 +206,59 @@ namespace BondMobileApp.Pages
                 int Option = m.Next(Options.Count);
                 Debug.WriteLine("Option: " + Option);
 
-                // check if it is in the list or if it is equal to the question
-                if (OtherOptions.Contains(Option) == true ||                            //Check if Options is already on the Options List
-                    Options[Option].bond_girl == Options[n].bond_girl ||                //Check if Option villain = Question villain
-                    Options[Option].bond_girl_actress == Options[n].bond_girl_actress ||    //Check if Option actor = Question actor
-                    Options[Option].movie_title == Options[n].movie_title ||            //Check if Option movie = Question movie
-                    CheckOtherOptions(Option) == true)                                  //Check if Option values match any previous Option values
+                //// check if it is in the list or if it is equal to the question
+                //if (OtherOptions.Contains(Option) == true ||                            //Check if Options is already on the Options List
+                //    Options[Option].bond_girl == Options[n].bond_girl ||                //Check if Option villain = Question villain
+                //    Options[Option].bond_girl_actress == Options[n].bond_girl_actress ||    //Check if Option actor = Question actor
+                //    Options[Option].movie_title == Options[n].movie_title ||            //Check if Option movie = Question movie
+                //    CheckOtherOptions(Option) == true)                                  //Check if Option values match any previous Option values
+                //{
+                //    //Debug.WriteLine("Option already on List!");
+                //}
+
+
+                switch (typeQuestion)
                 {
-                    //Debug.WriteLine("Option already on List!");
+                    case 1:                                                 // Actor
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].bond_actor) ;
+                        else OtherOptions.Add(Option);
+                        break;
+                    case 2:                                                 // Year
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].movie_year) ;
+                        else OtherOptions.Add(Option);
+                        break;
+                    case 3:                                                 // Director
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].director) ;
+                        else OtherOptions.Add(Option);
+                        break;
+                    case 4:                                                 // M
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].M) ;
+                        else OtherOptions.Add(Option);
+                        break;
+                    case 5:                                                  // Q
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].Q) ;
+                        else OtherOptions.Add(Option);
+                        break;
+                    default:                                                 // MoneyPenny
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].Moneypenny) ;
+                        else OtherOptions.Add(Option);
+                            break;
                 }
+
+
+
+
+
+
                 // if unique, add it to the list
-                else
-                {
-                    //Debug.WriteLine("Add Option!");
-                    // Calls getHenchmanName with a random number in HenchmenList
-                    OtherOptions.Add(Option);
-                    //Debug.WriteLine("Option Count: " + Options.Count);
-                    //setLabelData();
-                }
+                //else
+                //{
+                //    //Debug.WriteLine("Add Option!");
+                //    // Calls getHenchmanName with a random number in HenchmenList
+                //    OtherOptions.Add(Option);
+                //    //Debug.WriteLine("Option Count: " + Options.Count);
+                //    //setLabelData();
+                //}
             }
 
 
@@ -231,11 +266,11 @@ namespace BondMobileApp.Pages
 
 
             //// For Debug Purposes: Verify that all answers are unique
-            //Debug.WriteLine("\nVerify Option are unique");
-            //for (int i = 0; i < OtherOptions.Count; i++)
-            //{
-            //    Debug.WriteLine(OtherOptions[i]);
-            //}
+            Debug.WriteLine("\nVerify Option are unique");
+            for (int i = 0; i < OtherOptions.Count; i++)
+            {
+                Debug.WriteLine(OtherOptions[i]);
+            }
 
 
 
@@ -266,20 +301,45 @@ namespace BondMobileApp.Pages
         }
 
 
-        private bool CheckOtherOptions(int selection)
-        {
-            //Debug.WriteLine("In Check Other Options " + selection + " OtherOptions Count: " + OtherOptions.Count);
-            for (int i = 0; i < OtherOptions.Count; i++)
-            {
-                //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
-                //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
-                if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl || Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //private bool CheckOtherOptions(int selection)
+        //{
+        //    //Debug.WriteLine("In Check Other Options " + selection + " OtherOptions Count: " + OtherOptions.Count);
+        //    for (int i = 0; i < OtherOptions.Count; i++)
+        //    {
+        //        //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
+        //        //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
+
+        //        //if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl || Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
+        //        //{
+        //        //    return true;
+        //        //}
+
+
+        //        switch (typeQuestion)
+        //        {
+        //            case 1:                                                 // Actor
+        //                if (Options[selection].bond_actor == Options[OtherOptions[i]].bond_actor) return true;
+        //                else return false;
+        //            case 2:                                                 // Year
+        //                if (Options[selection].movie_year == Options[OtherOptions[i]].movie_year) return true;
+        //                else return false;
+        //            case 3:                                                 // Director
+        //                if (Options[selection].director == Options[OtherOptions[i]].director) return true;
+        //                else return false;
+        //            case 4:                                                 // M
+        //                if (Options[selection].M == Options[OtherOptions[i]].M) return true;
+        //                else return false;
+        //            case 5:                                                  // Q
+        //                if (Options[selection].Q == Options[OtherOptions[i]].Q) return true;
+        //                else return false;
+        //            default:                                                 // MoneyPenny
+        //                if (Options[selection].Moneypenny == Options[OtherOptions[i]].Moneypenny) return true;
+        //                else return false;
+        //        }
+
+        //    }
+        //    //return false;
+        //}
 
 
         private bool CheckAnswer(string selection)
@@ -290,7 +350,7 @@ namespace BondMobileApp.Pages
                 //Debug.WriteLine(i + ": " + Options[i]);
                 if (Options[i].movie_title == selection)
                 {
-                    if (Options[i].bond_girl == Options[QuestionsAsked[QuestionsAsked.Count - 1]].bond_girl)
+                    if (Options[i].director == Options[QuestionsAsked[QuestionsAsked.Count - 1]].director)
                     {
                         return true;
                     }

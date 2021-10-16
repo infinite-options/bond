@@ -20,17 +20,17 @@ namespace BondMobileApp.Pages
             InitializeComponent();
         }
 
-        void Movie_Questions(System.Object sender, System.EventArgs e)
-        {
-            Debug.WriteLine("Movie Button Pressed");
-            Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
-        }
-
         //void Movie_Questions(System.Object sender, System.EventArgs e)
         //{
-        //    qtype = "movies";
-        //    Application.Current.MainPage = new NavigationPage(new QuestionPage(qtype));
+        //    Debug.WriteLine("Movie Button Pressed");
+        //    Application.Current.MainPage = new NavigationPage(new MovieQuestionPage());
         //}
+
+        void Movie_Questions(System.Object sender, System.EventArgs e)
+        {
+            qtype = "movies";
+            Application.Current.MainPage = new NavigationPage(new MovieQuestionPage(qtype));
+        }
 
         void BondGirl_Questions(System.Object sender, System.EventArgs e)
         {

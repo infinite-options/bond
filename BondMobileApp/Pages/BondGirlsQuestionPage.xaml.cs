@@ -135,7 +135,7 @@ namespace BondMobileApp.Pages
                     switch (typeQuestion)
                     {
                         case 1:                                                 // Actor
-                            Question = "Who played " + Options[nextQuestion].bond_girl_actress + " in the movie " + Options[nextQuestion].movie_title + "?";
+                            Question = "Who played " + Options[nextQuestion].bond_girl + " in the movie " + Options[nextQuestion].movie_title + "?";
                             Option0.Content = Options[Display[0]].bond_girl_actress;
                             Option1.Content = Options[Display[1]].bond_girl_actress;
                             Option2.Content = Options[Display[2]].bond_girl_actress;
