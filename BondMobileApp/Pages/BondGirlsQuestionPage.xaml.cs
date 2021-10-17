@@ -121,6 +121,10 @@ namespace BondMobileApp.Pages
                     Debug.WriteLine("BGQP: Ask Question! " + nextQuestion);
                     QuestionsAsked.Add(nextQuestion);
 
+                    //  2d.  Select Question Type
+                    Random q = new Random();
+                    typeQuestion = q.Next(3);
+
                     //  2b.  Select Other Options
                     GetOtherOptions(nextQuestion);                              // Returns DisplayOptions with list or random integers
 
@@ -129,8 +133,8 @@ namespace BondMobileApp.Pages
 
                     //  2d.  Select Question Type
                     //  2e.  Render Question
-                    Random q = new Random();
-                    typeQuestion = q.Next(3);
+                    //Random q = new Random();
+                    //typeQuestion = q.Next(3);
 
                     switch (typeQuestion)
                     {
@@ -248,7 +252,9 @@ namespace BondMobileApp.Pages
             {
                 //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
                 //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
-                if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl || Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
+                if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl ||
+                    Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress ||
+                    Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
                 {
                     return true;
                 }

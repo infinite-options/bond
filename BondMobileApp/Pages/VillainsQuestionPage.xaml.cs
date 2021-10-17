@@ -121,6 +121,10 @@ namespace BondMobileApp.Pages
                     Debug.WriteLine("VQP: Ask Question! " + nextQuestion);
                     QuestionsAsked.Add(nextQuestion);
 
+                    //  2d.  Select Question Type
+                    Random q = new Random();
+                    typeQuestion = q.Next(3);
+
                     //  2b.  Select Other Options
                     GetOtherOptions(nextQuestion);                              // Returns DisplayOptions with list or random integers
 
@@ -129,8 +133,8 @@ namespace BondMobileApp.Pages
 
                     //  2d.  Select Question Type
                     //  2e.  Render Question
-                    Random q = new Random();
-                    typeQuestion = q.Next(3);
+                    //Random q = new Random();
+                    //typeQuestion = q.Next(3);
 
                     switch (typeQuestion)
                     {
