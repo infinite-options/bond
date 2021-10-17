@@ -46,7 +46,7 @@ namespace BondMobileApp.Pages
         // Constructor
         public MovieQuestionPage(string qtype)
         {
-            Debug.WriteLine("\nEntering Question Page Code Behind " + qtype);
+            Debug.WriteLine("\nEntering Movie Question Page Code Behind " + qtype);
             InitializeComponent();
             CallEndpoint(qtype);
 
@@ -125,21 +125,50 @@ namespace BondMobileApp.Pages
                     Debug.WriteLine("MQP: Ask Question! " + nextQuestion);
                     QuestionsAsked.Add(nextQuestion);
 
+
+
+                    //  2d.  Select Question Type
+                    Random q = new Random();
+                    typeQuestion = q.Next(6);
+                    Debug.WriteLine("Question Type is Case: " + typeQuestion);
+
+                    //switch (typeQuestion)
+                    //{
+                    //    case 1:                                                 // Actor
+                    //        Question = "Who played James Bond in the movie " + Options[nextQuestion].movie_title + "?";
+                    //        break;
+                    //    case 2:                                                 // Year
+                    //        Question = "What year was " + Options[nextQuestion].movie_title + " released?";
+                    //        break;
+                    //    case 3:                                                 // Director
+                    //        Question = "Who directed " + Options[nextQuestion].movie_title + "?";
+                    //        break;
+                    //    case 4:                                                 // M
+                    //        Question = "Who played 'M' in " + Options[nextQuestion].movie_title + "?";
+                    //        break;
+                    //    case 5:                                                  // Q
+                    //        Question = "Who played 'Q' in " + Options[nextQuestion].movie_title + "?";
+                    //        break;
+                    //    default:                                                 // MoneyPenny
+                    //        Question = "Who played 'MoneyPenny' in " + Options[nextQuestion].movie_title + "?";
+                    //        break;
+                    //}
+
+
                     //  2b.  Select Other Options
-                    GetOtherOptions(nextQuestion);                              // Returns DisplayOptions with list or random integers
+                    GetOtherOptions(nextQuestion, typeQuestion);                              // Returns DisplayOptions with list or random integers
 
                     questions = questions + 1;
                     GetScores();
 
-                    //  2d.  Select Question Type
                     //  2e.  Render Question
-                    Random q = new Random();
-                    typeQuestion = q.Next(6);
+                    //Random q = new Random();
+                    //typeQuestion = q.Next(6);
 
                     switch (typeQuestion)
                     {
                         case 1:                                                 // Actor
-                            Question = "Who played James Bond in the moview " + Options[nextQuestion].movie_title + "?";
+                            Question = "Who played James Bond in the movie " + Options[nextQuestion].movie_title + "?";
                             Option0.Content = Options[Display[0]].bond_actor;
                             Option1.Content = Options[Display[1]].bond_actor;
                             Option2.Content = Options[Display[2]].bond_actor;
@@ -167,14 +196,14 @@ namespace BondMobileApp.Pages
                             Option3.Content = Options[Display[3]].M;
                             break;
                         case 5:                                                  // Q
-                            Question = "Who played 'M' in " + Options[nextQuestion].movie_title + "?";
+                            Question = "Who played 'Q' in " + Options[nextQuestion].movie_title + "?";
                             Option0.Content = Options[Display[0]].Q;
                             Option1.Content = Options[Display[1]].Q;
                             Option2.Content = Options[Display[2]].Q;
                             Option3.Content = Options[Display[3]].Q;
                             break;
                         default:                                                 // MoneyPenny
-                            Question = "Who played 'M' in "  + Options[nextQuestion].movie_title + "?";
+                            Question = "Who played 'MoneyPenny' in "  + Options[nextQuestion].movie_title + "?";
                             Option0.Content = Options[Display[0]].Moneypenny;
                             Option1.Content = Options[Display[1]].Moneypenny;
                             Option2.Content = Options[Display[2]].Moneypenny;
@@ -193,9 +222,9 @@ namespace BondMobileApp.Pages
         }
 
         //  2b.  Select Other Options
-        private void GetOtherOptions(int n)
+        private void GetOtherOptions(int n, int type)
         {
-            Debug.WriteLine("MQP: Get Other Options");
+            Debug.WriteLine("MQP: In Get Other Options " + n);
             OtherOptions.Clear();
             OtherOptions.Add(n);
 
@@ -216,31 +245,56 @@ namespace BondMobileApp.Pages
                 //    //Debug.WriteLine("Option already on List!");
                 //}
 
-
-                switch (typeQuestion)
+                Debug.WriteLine("Queston type " + type);
+                switch (type)
                 {
                     case 1:                                                 // Actor
-                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].bond_actor) ;
+                        Debug.WriteLine("In case 1 " + type + " " + Options[Option].bond_actor + " " + Options[n].bond_actor);
+                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].bond_actor || CheckOtherOptions(type) == true)
+                        {
+                            Debug.WriteLine(OtherOptions.Contains(Option) + " In Other Options Case Statement " + CheckOtherOptions(type));
+                        }
                         else OtherOptions.Add(Option);
+
                         break;
                     case 2:                                                 // Year
-                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].movie_year) ;
+                        Debug.WriteLine("In case 2 " + type + " " + Options[Option].movie_year + " " + Options[n].movie_year);
+                        if (OtherOptions.Contains(Option) == true || Options[Option].movie_year == Options[n].movie_year || CheckOtherOptions(type) == true)
+                        {
+                            Debug.WriteLine(OtherOptions.Contains(Option) + " In Other Options Case Statement " + CheckOtherOptions(type));
+                        }
                         else OtherOptions.Add(Option);
                         break;
                     case 3:                                                 // Director
-                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].director) ;
+                        Debug.WriteLine("In case 3 " + type + " " + Options[Option].director + " " + Options[n].director);
+                        if (OtherOptions.Contains(Option) == true || Options[Option].director == Options[n].director || CheckOtherOptions(type) == true)
+                        {
+                            Debug.WriteLine(OtherOptions.Contains(Option) + " In Other Options Case Statement " + CheckOtherOptions(type));
+                        }
                         else OtherOptions.Add(Option);
                         break;
                     case 4:                                                 // M
-                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].M) ;
+                        Debug.WriteLine("In case 4 " + type + " " + Options[Option].M + " " + Options[n].M);
+                        if (OtherOptions.Contains(Option) == true || Options[Option].M == Options[n].M || String.IsNullOrEmpty(Options[Option].M) || CheckOtherOptions(type) == true)
+                        {
+                            Debug.WriteLine(OtherOptions.Contains(Option) + " In Other Options Case Statement " + CheckOtherOptions(type));
+                        }
                         else OtherOptions.Add(Option);
                         break;
                     case 5:                                                  // Q
-                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].Q) ;
+                        Debug.WriteLine("In case 5 " + type + " " + Options[Option].Q + " " + Options[n].Q);
+                        if (OtherOptions.Contains(Option) == true || Options[Option].Q == Options[n].Q || String.IsNullOrEmpty(Options[Option].Q) || CheckOtherOptions(type) == true)
+                        {
+                            Debug.WriteLine(OtherOptions.Contains(Option) + " In Other Options Case Statement " + CheckOtherOptions(type));
+                        }
                         else OtherOptions.Add(Option);
                         break;
                     default:                                                 // MoneyPenny
-                        if (OtherOptions.Contains(Option) == true || Options[Option].bond_actor == Options[n].Moneypenny) ;
+                        Debug.WriteLine("In case 0 " + type + " " + Options[Option].Moneypenny + " " + Options[n].Moneypenny);
+                        if (OtherOptions.Contains(Option) == true || Options[Option].Moneypenny == Options[n].Moneypenny || String.IsNullOrEmpty(Options[Option].Moneypenny) || CheckOtherOptions(type) == true)
+                        {
+                            Debug.WriteLine(OtherOptions.Contains(Option) + " In Other Options Case Statement " + CheckOtherOptions(type));
+                        }
                         else OtherOptions.Add(Option);
                             break;
                 }
@@ -301,45 +355,45 @@ namespace BondMobileApp.Pages
         }
 
 
-        //private bool CheckOtherOptions(int selection)
-        //{
-        //    //Debug.WriteLine("In Check Other Options " + selection + " OtherOptions Count: " + OtherOptions.Count);
-        //    for (int i = 0; i < OtherOptions.Count; i++)
-        //    {
-        //        //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
-        //        //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
+        private bool CheckOtherOptions(int selection)
+        {
+            Debug.WriteLine("\nIn Check Other Options " + selection + " OtherOptions Count: " + OtherOptions.Count);
+            for (int i = 0; i < OtherOptions.Count; i++)
+            {
+                //Debug.WriteLine(i + ": Evaluate " + OtherOptions[i] + " Against " + selection);
+                //Debug.WriteLine(Options[selection].villain + " is equal to " + Options[OtherOptions[i]].villain);
 
-        //        //if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl || Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
-        //        //{
-        //        //    return true;
-        //        //}
+                //if (Options[selection].bond_girl == Options[OtherOptions[i]].bond_girl || Options[selection].bond_girl_actress == Options[OtherOptions[i]].bond_girl_actress || Options[selection].movie_title == Options[OtherOptions[i]].movie_title)
+                //{
+                //    return true;
+                //}
 
 
-        //        switch (typeQuestion)
-        //        {
-        //            case 1:                                                 // Actor
-        //                if (Options[selection].bond_actor == Options[OtherOptions[i]].bond_actor) return true;
-        //                else return false;
-        //            case 2:                                                 // Year
-        //                if (Options[selection].movie_year == Options[OtherOptions[i]].movie_year) return true;
-        //                else return false;
-        //            case 3:                                                 // Director
-        //                if (Options[selection].director == Options[OtherOptions[i]].director) return true;
-        //                else return false;
-        //            case 4:                                                 // M
-        //                if (Options[selection].M == Options[OtherOptions[i]].M) return true;
-        //                else return false;
-        //            case 5:                                                  // Q
-        //                if (Options[selection].Q == Options[OtherOptions[i]].Q) return true;
-        //                else return false;
-        //            default:                                                 // MoneyPenny
-        //                if (Options[selection].Moneypenny == Options[OtherOptions[i]].Moneypenny) return true;
-        //                else return false;
-        //        }
+                switch (typeQuestion)
+                {
+                    case 1:                                                 // Actor
+                        if (Options[selection].bond_actor == Options[OtherOptions[i]].bond_actor) return true;
+                        else return false;
+                    case 2:                                                 // Year
+                        if (Options[selection].movie_year == Options[OtherOptions[i]].movie_year) return true;
+                        else return false;
+                    case 3:                                                 // Director
+                        if (Options[selection].director == Options[OtherOptions[i]].director) return true;
+                        else return false;
+                    case 4:                                                 // M
+                        if (Options[selection].M == Options[OtherOptions[i]].M) return true;
+                        else return false;
+                    case 5:                                                  // Q
+                        if (Options[selection].Q == Options[OtherOptions[i]].Q) return true;
+                        else return false;
+                    default:                                                 // MoneyPenny
+                        if (Options[selection].Moneypenny == Options[OtherOptions[i]].Moneypenny) return true;
+                        else return false;
+                }
 
-        //    }
-        //    //return false;
-        //}
+            }
+            return false;
+        }
 
 
         private bool CheckAnswer(string selection)
@@ -400,7 +454,7 @@ namespace BondMobileApp.Pages
                 }
 
                 //Director
-                else if (typeQuestion == 0 && (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].director || CheckAnswer(contentString) == true))
+                else if (typeQuestion == 3 && (contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].director || CheckAnswer(contentString) == true))
                 {
                     Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
                     Debug.WriteLine("Correct Answer");
@@ -410,7 +464,7 @@ namespace BondMobileApp.Pages
                 }
 
                 //M
-                if (typeQuestion == 1 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].M)
+                else if (typeQuestion == 4 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].M)
                 {
                     Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
                     Debug.WriteLine("Correct Answer");
@@ -420,7 +474,7 @@ namespace BondMobileApp.Pages
                 }
 
                 //Q
-                else if (typeQuestion == 2 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].Q)
+                else if (typeQuestion == 5 && contentString == Options[QuestionsAsked[QuestionsAsked.Count - 1]].Q)
                 {
                     Application.Current.MainPage.DisplayAlert("Correct", "You're Good!", "OK");
                     Debug.WriteLine("Correct Answer");

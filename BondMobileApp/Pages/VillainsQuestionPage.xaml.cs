@@ -42,7 +42,7 @@ namespace BondMobileApp.Pages
         // Constructor
         public VillainsQuestionPage(string qtype)
         {
-            Debug.WriteLine("\nEntering Question Page Code Behind " + qtype);
+            Debug.WriteLine("\nEntering Villain Question Page Code Behind " + qtype);
             InitializeComponent();
             CallEndpoint(qtype);
 
