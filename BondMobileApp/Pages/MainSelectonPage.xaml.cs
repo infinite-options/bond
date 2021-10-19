@@ -73,5 +73,12 @@ namespace BondMobileApp.Pages
             qtype = "songs";
             Application.Current.MainPage = new NavigationPage(new ResultsPage("3", "2", "1"));
         }
+
+        void Credits(System.Object sender, System.EventArgs e)
+        {
+            Debug.WriteLine("Credits Button Pressed");
+            qtype = "credits";
+            Application.Current.MainPage = new NavigationPage(new CreditsPage());
+        }
     }
 }

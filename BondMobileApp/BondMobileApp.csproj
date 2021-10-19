@@ -24,8 +24,8 @@
     <None Remove="ViewModels\" />
     <None Remove="EndpointDataClasses\" />
     <None Remove="Fonts\" />
-    <None Remove="Interfaces\" />
-    <None Remove="Fonts\Chrome.ttf" />
+    <None Remove="Fonts\Righteous-Regular.ttf" />
+    <None Remove="Fonts\Staatliches-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -33,9 +33,9 @@
     <Folder Include="ViewModels\" />
     <Folder Include="EndpointDataClasses\" />
     <Folder Include="Fonts\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Fonts\Chrome.ttf" />
+    <EmbeddedResource Include="Fonts\Righteous-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\Staatliches-Regular.ttf" />
   </ItemGroup>
 </Project>

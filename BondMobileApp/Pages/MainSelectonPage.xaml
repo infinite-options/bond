@@ -2,7 +2,6 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:CustomizedLabelClass = "clr-namespace:BondMobileApp.Interfaces"
     x:Class="BondMobileApp.Pages.MainSelectonPage">
 
 
@@ -19,8 +18,8 @@
             <StackLayout Grid.Row="0" Margin="0,0,0,0">
                 <Frame BackgroundColor="Black" VerticalOptions="FillAndExpand" HasShadow="False" CornerRadius="0">
                     <StackLayout VerticalOptions="End">
-                        <Label Text="Welcome Mr. Bond" TextColor="White" FontSize ="40" FontFamily="Chrome" HorizontalTextAlignment="Center" Padding="30,0,30,0"/>
-                        <Label Text="You have Full Access" FontFamily="Chrome" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" />
+                        <Label Text="Welcome Mr. Bond" TextColor="White" FontSize ="40" FontFamily="Staat" HorizontalTextAlignment="Center" Padding="30,0,30,0"/>
+                        <Label Text="You have Full Access" FontFamily="Staat" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" />
                     </StackLayout>
                 </Frame>
             </StackLayout>
@@ -32,38 +31,35 @@
 
                             <StackLayout >
                                 <ImageButton Source="MoviesLarge" Clicked="Movie_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Movies" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>-->
                             </StackLayout>
 
                             <StackLayout >
-                                <ImageButton Source="BondGirlsLarge" Clicked="BondGirl_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Bond Girls" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>-->
+                                <ImageButton Source="BondGirlsLarge" Clicked="BondGirl_Questions" BackgroundColor="Transparent" ></ImageButton>   
                             </StackLayout>
 
                             <StackLayout >
-                                <ImageButton Source="VillainsLarge" Clicked="Villain_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Villains" HorizontalOptions="Start" FontFamily="Chrome" FontSize="50" TextColor="Red" BackgroundColor="Black" Margin="10,-90,0,40"> </Label>-->
+                                <ImageButton Source="VillainsLarge" Clicked="Villain_Questions" BackgroundColor="Transparent" ></ImageButton>  
                             </StackLayout>
 
                             <StackLayout >
-                                <ImageButton Source="HenchmenLarge" Clicked="Henchmen_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Henchmen" HorizontalOptions="Start" FontFamily="Chrome" FontSize="50" TextColor="Red"  BackgroundColor="Black" Margin="10,-90,0,40"> </Label>-->
+                                <ImageButton Source="CreditsLarge" Clicked="Credits" BackgroundColor="Transparent" ></ImageButton>  
+                            </StackLayout>
+                            
+                            <!--<StackLayout >
+                                <ImageButton Source="HenchmenLarge" Clicked="Henchmen_Questions" BackgroundColor="Transparent" ></ImageButton>    
                             </StackLayout>
 
                             <StackLayout >
                                 <ImageButton Source="PlotsLarge" Clicked="Plot_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Plots" HorizontalOptions="Start" FontFamily="Chrome" FontSize="50" TextColor="Red"  BackgroundColor="Black" Margin="10,-90,0,40"> </Label>-->
                             </StackLayout>
 
                             <StackLayout >
                                 <ImageButton Source="LinesLarge" Clicked="Line_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Lines" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>-->
                             </StackLayout>
 
                             <StackLayout >
-                                <ImageButton Source="SongsLarge" Clicked="Song_Questions" BackgroundColor="Transparent" ></ImageButton>
-                                <!--<Label Text="Songs" HorizontalOptions="Start" FontSize="Title" TextColor="BlanchedAlmond" BackgroundColor="Black" Margin="10,-90,0,75"> </Label>-->
-                            </StackLayout>
+                                <ImageButton Source="SongsLarge" Clicked="Song_Questions" BackgroundColor="Transparent" ></ImageButton> 
+                            </StackLayout>-->
                  
                     </StackLayout>
 

@@ -7,7 +7,13 @@
 
         <ResourceDictionary>
             <Style x:Key="FontLabelStyle" TargetType="Label">
-              <Setter Property="FontFamily" Value="Chrome"/>
+                <Setter Property="FontFamily" Value="Chrome"/>
+            </Style>
+            <Style x:Key="FontLabelRighteous" TargetType="Label">
+                <Setter Property="FontFamily" Value="Righteous"/>
+            </Style>
+            <Style x:Key="FontLabelStaat" TargetType="Label">
+                <Setter Property="FontFamily" Value="Staat"/>
             </Style>
         </ResourceDictionary>
 
